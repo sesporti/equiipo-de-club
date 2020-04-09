@@ -1,6 +1,6 @@
 package es.sesporti.equipoclubapi;
 
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +29,8 @@ public class ConfiguracionPorJava {
 //		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 //		mapper.setVisibility(PropertyAccessor.GETTER, Visibility.PROTECTED_AND_PUBLIC);
 //		mapper.setSerializationInclusion(Include.ALWAYS);
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-	    mapper.setDateFormat(df);
+//		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+//	    mapper.setDateFormat(df);
 		
 		
 		return mapper;

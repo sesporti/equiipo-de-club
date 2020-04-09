@@ -2,16 +2,12 @@ package es.sesporti.asistencia;
 
 import javax.persistence.ManyToOne;
 
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-
-
 public class Entrenador implements Identificable, Comparable<Entrenador>{
 
 
 	protected Long id;
 	private String nombre, nif, categoria;
-//	private Long idEquipo;
+
 	@ManyToOne
 //	@JoinColumn(name="ID_EQUIPO", referencedColumnName="ID")
 	private Equipo equipo;
@@ -37,14 +33,6 @@ public class Entrenador implements Identificable, Comparable<Entrenador>{
 		this.equipo = equipo;
 	}
 	
-//	public Long getIdEquipo() {
-//		return idEquipo;
-//	}
-//
-//	public void setIdEquipo(Long idEquipo) {
-//		this.idEquipo = idEquipo;
-//	}
-
 	@Override
 	public Long getId() {
 		return id;

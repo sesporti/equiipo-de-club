@@ -3,13 +3,9 @@ package es.sesporti.asistencia;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.JoinColumn;
+//import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-//import javax.persistence.FetchType;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.OneToOne;
 
 public class Jugador implements Identificable, Comparable<Jugador>{
 
@@ -17,11 +13,11 @@ public class Jugador implements Identificable, Comparable<Jugador>{
 	private String nombre, nif, poc;
 	private int edad;
 	
-//	@ManyToOne
+	@ManyToOne
 //	@JoinColumn(name="ID_EQUIPO", referencedColumnName="ID")
 	private Equipo equipo;
 	
-//	@OneToMany(targetEntity=Asistencia.class)
+	@OneToMany(targetEntity=Asistencia.class)
 	private List<Asistencia> asistencias;
 	
 	public Jugador() {}
@@ -46,7 +42,7 @@ public class Jugador implements Identificable, Comparable<Jugador>{
 	public void setAsistencias(List<Asistencia> asistencias) {
 		this.asistencias = asistencias;
 	}
-
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -103,6 +99,14 @@ public class Jugador implements Identificable, Comparable<Jugador>{
 
 	public void setIdEquipo(Equipo equipo) {
 		this.equipo.id = equipo.id;
+	}
+	
+	public String getNombreEquipo() {
+		return getEquipo().getNombre();
+	}
+	
+	public String getCategoriaEquipo() {
+		return getEquipo().getCategoria();
 	}
 	
 	public void addAsistencia(Asistencia asistencia) {

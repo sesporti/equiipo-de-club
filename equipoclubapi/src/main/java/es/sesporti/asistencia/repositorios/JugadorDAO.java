@@ -16,5 +16,6 @@ public interface JugadorDAO extends JpaRepository<Jugador, Long>{
 	Jugador findByNombreContaining(String txt);
 	List<Jugador> findAllByNombreContaining(String txt);
 	List<Jugador> findByEquipoNombre(String nombreEquipo);
+	List<Jugador> findByEquipoCategoria(String categoriaEquipo);
 	List<Jugador> findAllByPocContaining(String poc);
 }

@@ -4,13 +4,16 @@ import java.util.Date;
 
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+//import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Asistencia implements Identificable, Comparable<Asistencia> {
 
 	protected Long id;
 	
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "DEFAULT_LOCALE")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "DEFAULT_LOCALE")
+	@JsonDeserialize(using = DateHandler.class)
 	private Date fecha;
 	
 	@ManyToOne
@@ -46,13 +49,17 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-        if (!jugador.getAsistencias().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
-            jugador.getAsistencias().add(this);
-        }
+//        if (!jugador.getAsistencias().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
+//            jugador.getAsistencias().add(this);
+//        }
 	}
 	
 	public Long getIdJugador() {
 		return getJugador().getId();
+	}
+	
+	public String getNombreJugador() {
+		return getJugador().getNombre();
 	}
 
 	public TipoAsistencia getTipoAsistencia() {

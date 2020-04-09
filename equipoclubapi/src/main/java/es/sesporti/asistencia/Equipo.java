@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.OneToMany;
-
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-
+//import javax.persistence.OneToMany;
 
 public class Equipo implements Identificable, Comparable<Equipo>{
 
