@@ -14,6 +14,10 @@ Se solicita una aplicación que pueda gestionar un equipo de un club, aunque ini
 
 La aplicación debe tener un servicio de suscripción para que el que desee, pueda recibir las distintas incidencias.  
 
-El uso de aplicación va a ser inminentemente para uso en smartphone, aunque debe ser multiplataforma. 
+El uso de aplicación va a ser inminentemente para uso en smartphone, aunque debe ser multiplataforma.
+
+La documentación del proyecto se puede consultar en el siguiente link:
+
+## [Wiki](https://git.institutomilitar.com/sesporti/equiipo-de-club/wikis/home)
 
 

@@ -1,0 +1,15 @@
+package competicion;
+
+public enum Licencia {
+
+	PROFESIONAL,
+	AFICIONADO,
+	JUVENIL,
+	CADETE,
+	INFANTIL,
+	ALEVIN,
+	BENJAMIN,
+	PREBENJAMIN,
+	DEBUTANTE,
+	SINLICENCIA
+}
