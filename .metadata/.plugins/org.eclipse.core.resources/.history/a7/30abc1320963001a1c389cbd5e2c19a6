@@ -1,0 +1,5 @@
+package personal;
+
+public interface Licenciable {
+
+}

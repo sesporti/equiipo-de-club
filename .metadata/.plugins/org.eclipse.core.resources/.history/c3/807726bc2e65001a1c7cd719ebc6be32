@@ -1,0 +1,168 @@
+package competicion;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import personal.Entrenador;
+import personal.Jugador;
+
+public class Equipo implements Equipable, Clasificable{
+	
+	private Competicionable competicion;
+	private int identificador;
+	private Collection<Jugador> jugadores;
+	private Collection<Entrenador> entrenadores;
+	
+	public Equipo(Competicionable competicion, int identificador) {
+		this.competicion = competicion;
+		this.identificador = identificador;
+		jugadores = new ArrayList<>();
+		entrenadores = new ArrayList<>(4);
+		
+	}
+	
+	@Override
+	public String getTemporada() {
+
+		return competicion.getTemporada();
+	}
+
+	@Override
+	public Licenciable getLicencia() {
+
+		return competicion.getLicencia();
+	}
+
+	@Override
+	public int getGrupo() {
+
+		return competicion.getGrupo();
+	}
+
+	@Override
+	public Categoria getCategoria() {
+
+		return competicion.getCategoria();
+	}
+
+	@Override
+	public TipoEquipo getTipoEquipo() {
+
+		return competicion.getTipoEquipo();
+	}
+
+	@Override
+	public int getGanados() {
+
+		return competicion.getCompeticion().getClasificacion().getPartidosGanados().get(this);
+	}
+
+	@Override
+	public int getEmpatados() {
+
+		return 0;
+	}
+
+	@Override
+	public int getPerdidos() {
+
+		return 0;
+	}
+
+	@Override
+	public int getPuntos() {
+
+		return 0;
+	}
+
+	@Override
+	public int getGolesFavor() {
+
+		return 0;
+	}
+
+	@Override
+	public int getGolesContra() {
+
+		return 0;
+	}
+
+	@Override
+	public int getPosicion() {
+
+		return 0;
+	}
+
+	@Override
+	public int getIdentificador() {
+
+		return identificador;
+	}
+
+	@Override
+	public Collection<Entrenador> getEntrenadores() {
+
+		return entrenadores;
+	}
+
+	@Override
+	public Collection<Jugador> getJugadores() {
+
+		return jugadores;
+	}
+
+	@Override
+	public boolean tieneEntrenador() {
+
+		return !getEntrenadores().isEmpty();
+	}
+
+	@Override
+	public boolean tieneJugadores() {
+
+		return !getJugadores().isEmpty();
+	}
+
+	@Override
+	public void agregarEntrenador(Entrenador entrenador) {
+		getEntrenadores().add(entrenador);
+		
+	}
+
+	@Override
+	public void eliminarEntrenador(Entrenador entrenador) {
+		getEntrenadores().remove(entrenador);
+		
+	}
+
+	@Override
+	public void agregarJugador(Jugador jugador) {
+		getJugadores().add(jugador);
+		
+	}
+
+	@Override
+	public void eliminarJugador(Jugador jugador) {
+		getJugadores().remove(jugador);
+		
+	}
+
+	@Override
+	public void agregarJugadores(Collection<Jugador> jugadores) {
+		getJugadores().addAll(jugadores);
+		
+	}
+
+	@Override
+	public Competicion getCompeticion() {
+
+		return (Competicion) competicion;
+	}
+
+	@Override
+	public Calendario getCalendario() {
+
+		return competicion.getCompeticion().getCalendario();
+	}
+
+}

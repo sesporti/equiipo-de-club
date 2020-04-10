@@ -1,0 +1,13 @@
+package personal;
+
+public class Socio extends Persona{
+	
+	private int numeroSocio;
+	private CuotaSocio cuota;
+
+	public Socio(String nombre, String sexo, int edad) {
+		super(nombre, sexo, edad);
+		// TODO Auto-generated constructor stub
+	}
+
+}

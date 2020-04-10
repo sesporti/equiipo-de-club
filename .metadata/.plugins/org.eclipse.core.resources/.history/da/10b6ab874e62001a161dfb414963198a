@@ -1,0 +1,18 @@
+package personal;
+
+import java.util.List;
+
+public class Jugador extends Persona implements Familiarizable{
+
+	
+	private Licencia licencia;
+	private Equipo equipo;
+	private Cuota cuotaJugador;
+	private List<Familiar> familiares;
+	
+	public Jugador(String nombre, String sexo, int edad) {
+		super(nombre, sexo, edad);
+		// TODO Auto-generated constructor stub
+	}
+	
+}

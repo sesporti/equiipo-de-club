@@ -1,0 +1,22 @@
+package lugares;
+
+import java.util.List;
+
+public class Club implements Ubicacion{
+	
+	private String cif, nombre;
+	private List<Campo> campos;
+
+	@Override
+	public double getLongitud() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getLatitud() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

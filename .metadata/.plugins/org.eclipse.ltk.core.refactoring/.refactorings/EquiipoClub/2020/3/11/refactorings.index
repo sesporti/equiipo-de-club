@@ -1,0 +1,12 @@
+1583784423122	Encapsulate field 'cuota'
+1583784913110	Delete element
+1583785786592	Encapsulate field 'cuota'
+1583866318884	Encapsulate field 'dni'
+1583870532388	Rename field 'equipo'
+1583874621799	Move compilation units
+1583874696930	Move compilation units
+1583874707538	Move compilation unit
+1583874742567	Move compilation unit
+1583874889719	Rename package 'equipo'
+1584020769511	Extract interface 'LicenciablePersonal'
+1584127578197	Rename local variable 'puntuaciones'

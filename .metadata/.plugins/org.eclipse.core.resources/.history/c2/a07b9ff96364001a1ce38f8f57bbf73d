@@ -1,0 +1,5 @@
+package competicion;
+
+public interface Agrupable {
+
+}

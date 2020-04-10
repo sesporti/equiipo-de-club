@@ -1,0 +1,25 @@
+package personal;
+
+public class CuotaSocio extends CuotaImpl<Socio>{
+
+	private final double CUOTASOCIO = 100.50;
+	
+	public CuotaSocio(double cuota, Socio tipo) {
+		super(cuota, tipo);
+		
+	}
+	
+	@Override
+	public double getCuota(Socio tipo) {
+		
+		return CUOTASOCIO;
+	}
+
+	@Override
+	public Socio getTipo() {
+		
+		return getSocio;
+	}
+
+
+}

@@ -1,0 +1,190 @@
+package competicion;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import personal.Entrenador;
+import personal.Jugador;
+
+public class Equipo implements Equipable, Clasificable{
+	
+	private Competicionable competicion;
+	private int identificador;
+	private Collection<Jugador> jugadores;
+	private Collection<Entrenador> entrenadores;
+	
+	public Equipo(Competicionable competicion, int identificador) {
+		this.competicion = competicion;
+		this.identificador = identificador;
+		jugadores = new ArrayList<>();
+		entrenadores = new ArrayList<>(4);
+		
+	}
+	
+	@Override
+	public String getTemporada() {
+
+		return competicion.getTemporada();
+	}
+
+	@Override
+	public Licenciable getLicencia() {
+
+		return competicion.getLicencia();
+	}
+
+	@Override
+	public int getGrupo() {
+
+		return competicion.getGrupo();
+	}
+
+	@Override
+	public Categoria getCategoria() {
+
+		return competicion.getCategoria();
+	}
+
+	@Override
+	public TipoEquipo getTipoEquipo() {
+
+		return competicion.getTipoEquipo();
+	}
+
+	@Override
+	public int getGanados() {
+
+		return competicion.getCompeticion().getClasificacion().getPartidosGanados().get(this);
+	}
+
+	@Override
+	public int getEmpatados() {
+
+		return competicion.getCompeticion().getClasificacion().getPartidosEmpatados().get(this);
+	}
+
+	@Override
+	public int getPerdidos() {
+
+		return competicion.getCompeticion().getClasificacion().getPartidosPerdidos().get(this);
+	}
+
+	@Override
+	public int getPuntos() {
+		
+		return getGanados() * 3 + getEmpatados() * 1;
+	}
+
+	@Override
+	public int getGolesFavor() {
+
+		return competicion.getCompeticion().getClasificacion().getGolesFavor().get(this);
+	}
+
+	@Override
+	public int getGolesContra() {
+
+		return competicion.getCompeticion().getClasificacion().getGolesContra().get(this);
+	}
+
+	@Override
+	public int getPosicion() {
+		
+		Comparator<Equipo> comparador = new Comparator<Equipo>() {
+
+			@Override
+			public int compare(Equipo o1, Equipo o2) {
+				
+				return -(o1.getPuntos()-o2.getPuntos());
+			}
+		};
+		
+		Map<Equipo, Integer> puntuaciones = getCompeticion().getClasificacion().getPuntuacion();
+		
+		Collection<Map<Equipo, Integer>> collection = puntuaciones.entrySet().stream().mapToInt(w -> w.);
+		
+		
+		
+		
+			puntuaciones.entrySet().stream().sorted(comparador);
+				
+		return 0;
+	}
+
+	@Override
+	public int getIdentificador() {
+
+		return identificador;
+	}
+
+	@Override
+	public Collection<Entrenador> getEntrenadores() {
+
+		return entrenadores;
+	}
+
+	@Override
+	public Collection<Jugador> getJugadores() {
+
+		return jugadores;
+	}
+
+	@Override
+	public boolean tieneEntrenador() {
+
+		return !getEntrenadores().isEmpty();
+	}
+
+	@Override
+	public boolean tieneJugadores() {
+
+		return !getJugadores().isEmpty();
+	}
+
+	@Override
+	public void agregarEntrenador(Entrenador entrenador) {
+		getEntrenadores().add(entrenador);
+		
+	}
+
+	@Override
+	public void eliminarEntrenador(Entrenador entrenador) {
+		getEntrenadores().remove(entrenador);
+		
+	}
+
+	@Override
+	public void agregarJugador(Jugador jugador) {
+		getJugadores().add(jugador);
+		
+	}
+
+	@Override
+	public void eliminarJugador(Jugador jugador) {
+		getJugadores().remove(jugador);
+		
+	}
+
+	@Override
+	public void agregarJugadores(Collection<Jugador> jugadores) {
+		getJugadores().addAll(jugadores);
+		
+	}
+
+	@Override
+	public Competicion getCompeticion() {
+
+		return (Competicion) competicion;
+	}
+
+	@Override
+	public Calendario getCalendario() {
+
+		return competicion.getCompeticion().getCalendario();
+	}
+
+}

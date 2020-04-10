@@ -1,0 +1,35 @@
+package competicion;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Calendario {
+	
+	private Competicion competicion;
+	private Map<Jorneable, Integer> jornadas;
+	
+	public Calendario(Competicion competicion) {
+		
+		this.competicion = competicion;		
+		jornadas = new HashMap<Jorneable, Integer>();
+	}
+
+	public Competicion getCompeticion() {
+		return competicion;
+	}
+
+	public Map<Jorneable, Integer> getJornadas() {
+		return jornadas;
+	}
+	
+	public void agregarJornada(Jorneable jornada, int numeroJornada) {
+		getJornadas().put(jornada, numeroJornada);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Calendario [getCompeticion()=%s\ngetJornadas()=%s]", getCompeticion(), getJornadas());
+	}
+	
+	
+}

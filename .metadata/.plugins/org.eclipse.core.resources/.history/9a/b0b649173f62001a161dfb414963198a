@@ -1,0 +1,7 @@
+package personal;
+
+public interface Cuota<T> {
+	
+	double getCuota (T tipo);
+
+}

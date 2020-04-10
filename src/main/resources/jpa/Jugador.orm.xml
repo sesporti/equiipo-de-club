@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+			     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm 
+			     				     http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+			     version="1.0">
+
+    <entity class="es.sesporti.asistencia.Jugador" access="FIELD">
+        <table name="JUGADORES"/>
+        <attributes>
+            <id name="id">
+<!--                 <generated-value strategy="IDENTITY"/> -->
+            </id>
+            
+<!--             <basic name="nombre" optional="false"> -->
+<!--                 <column length="50"/> -->
+<!--             </basic> -->
+            
+            <basic name="nif" optional="false">
+                <column length="9"/>
+            </basic>
+            
+<!--             <basic name="poc" optional="true"> -->
+<!--                 <column length="50"/> -->
+<!--             </basic> -->
+            
+            <basic name="edad" optional="false">
+                <column length="2"/>
+            </basic>
+            
+            <many-to-one name="equipo" optional="false">
+                <join-column name="ID_EQUIPO" referencedColumnName="ID"/>
+            </many-to-one>
+            
+            <one-to-many name="asistencias" target-entity="es.sesporti.asistencia.Asistencia" mapped-by="jugador"/>
+			
+        </attributes>
+    </entity>
+    
+</entity-mappings>

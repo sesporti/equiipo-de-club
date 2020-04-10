@@ -1,0 +1,10 @@
+package personal;
+
+import java.util.Date;
+
+public interface Licenciable {
+	
+	Licencia getLicencia();
+	Date fechaCaducidad();
+
+}

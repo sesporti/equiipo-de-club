@@ -1,0 +1,149 @@
+package competicion;
+
+import java.util.Collection;
+
+import javax.swing.RowFilter.ComparisonType;
+
+import personal.Entrenador;
+import personal.Jugador;
+
+public class Equipo implements Equipable, Clasificable{
+	
+	private Competicionable competicion;
+	private int identificador;
+	private Collection<Jugador> jugadores;
+	private Collection<Entrenador> entrenadores;
+
+	@Override
+	public String getTemporada() {
+		// TODO Auto-generated method stub
+		return competicion.getTemporada();
+	}
+
+	@Override
+	public Licencia getLicencia() {
+		// TODO Auto-generated method stub
+		return competicion.getLicencia();
+	}
+
+	@Override
+	public int getGrupo() {
+		// TODO Auto-generated method stub
+		return competicion.getGrupo();
+	}
+
+	@Override
+	public Categoria getCategoria() {
+		// TODO Auto-generated method stub
+		return competicion.getCategoria();
+	}
+
+	@Override
+	public TipoEquipo getTipoEquipo() {
+		// TODO Auto-generated method stub
+		return competicion.getTipoEquipo();
+	}
+
+	@Override
+	public int getGanados() {
+		// TODO Auto-generated method stub
+		return competicion.;
+	}
+
+	@Override
+	public int getEmpatados() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getPerdidos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getPuntos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getGolesFavor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getGolesContra() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getPosicion() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getIdentificador() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Collection<Entrenador> getEntrenadores() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Jugador> getJugadores() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean tieneEntrenador() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean tieneJugadores() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void agregarEntrenador(Entrenador entrenador) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminarEntrenador(Entrenador entrenador) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void agregarJugador(Jugador jugador) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminarJugador(Jugador jugador) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void agregarJugadores(Collection<Jugador> jugadores) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

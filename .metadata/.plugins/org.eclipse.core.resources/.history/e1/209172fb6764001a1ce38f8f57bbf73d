@@ -1,0 +1,7 @@
+package competicion;
+
+public interface Licenciable extends LicenciablePersonal {
+	
+	Licencia getLicencia();
+
+}

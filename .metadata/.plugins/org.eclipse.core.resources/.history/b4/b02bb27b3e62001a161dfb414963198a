@@ -1,0 +1,17 @@
+package personal;
+
+public class CuotaSocio extends CuotaImpl<String>{
+
+	private final double CUOTA = 100.50;
+	
+	public CuotaSocio() {
+		super().
+	}
+	
+	@Override
+	public double getCuota(Double cuota) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

@@ -1,0 +1,27 @@
+package personal;
+
+public abstract class PersonaSueldo extends Persona {
+	
+	private double sueldo;
+
+	public PersonaSueldo(String nombre, String sexo, int edad, double sueldo) {
+		super(nombre, sexo, edad);
+		this.sueldo = sueldo;
+	}
+	
+	
+	public double getSueldo() {
+		return sueldo;
+	}
+	public abstract double calcularSueldo();
+	public abstract double agregarSueldo();
+	public abstract double eliminarSueldo();
+
+	@Override
+	public String toString() {
+		return super.toString() + "\nSUELDO = " + calcularSueldo() + " €";
+	}
+	
+	
+
+}

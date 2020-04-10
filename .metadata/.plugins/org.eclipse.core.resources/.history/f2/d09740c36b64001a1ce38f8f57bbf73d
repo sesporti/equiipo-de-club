@@ -1,0 +1,61 @@
+package competicion;
+
+import java.time.Year;
+
+public class Competicion implements Competicionable{
+	
+	private Year temporada;
+	private TipoEquipo tipoEquipo;
+	private Categoria categoria;
+	private int grupo;
+	private Licencia licencia;
+	private Clasificacion clasificacion;
+	private Calendario calendario;
+
+	
+	public Competicion() {
+		
+	}
+	
+	
+	
+	
+	public Clasificacion getClasificacion() {
+		return clasificacion;
+	}
+
+	public Calendario getCalendario() {
+		return calendario;
+	}
+
+	@Override
+	public Licencia getLicencia() {
+		// TODO Auto-generated method stub
+		return licencia;
+	}
+
+	@Override
+	public int getGrupo() {
+		// TODO Auto-generated method stub
+		return grupo;
+	}
+
+	@Override
+	public Categoria getCategoria() {
+		// TODO Auto-generated method stub
+		return categoria;
+	}
+
+	@Override
+	public TipoEquipo getTipoEquipo() {
+		// TODO Auto-generated method stub
+		return tipoEquipo;
+	}
+
+	@Override
+	public Year getTemporada() {
+		// TODO Auto-generated method stub
+		return temporada;
+	}
+
+}

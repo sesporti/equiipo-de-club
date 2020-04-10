@@ -1,0 +1,17 @@
+package personal;
+
+public abstract class CuotaImpl<T> implements Cuota<T>{
+
+	private double cuota;
+	private T tipo;
+	
+	public CuotaImpl(double cuota, T tipo) {
+		this.cuota = cuota;
+		this.tipo = tipo;
+	}
+	
+	@Override
+	public abstract double getCuota(T tipo);
+
+	
+}
