@@ -99,6 +99,7 @@ public class Equipo implements Equipable, Clasificable{
 	}
 
 	@Override
+	// Te das cuenta que esto es lo que digo que va en Clasificacion no?
 	public int getPosicion() {
 		
 		Comparator<Equipo> comparador = new Comparator<Equipo>() {
@@ -115,7 +116,7 @@ public class Equipo implements Equipable, Clasificable{
 				}
 			}
 		};
-		
+		// Usa siempre la interface
 		ArrayList<Equipo> equipos = (ArrayList<Equipo>) getCompeticion().getClasificacion().getEquipos();
 		
 		equipos.sort(comparador);
@@ -146,6 +147,7 @@ public class Equipo implements Equipable, Clasificable{
 		return jugadores;
 	}
 
+	// Todo lo de abajo no haria falta si lo pusieras default en la interface
 	@Override
 	public boolean tieneEntrenador() {
 
@@ -187,10 +189,13 @@ public class Equipo implements Equipable, Clasificable{
 		getJugadores().addAll(jugadores);
 		
 	}
+	// Hasta aqui y son 40 lineas que te ahorras en todas las implementaciones
 
 	@Override
 	public Competicion getCompeticion() {
-
+		// Este casteo te pasa por meter la clase
+		// en la interface sin que haga falta. Para eso 
+		// pon este tipo en el campo
 		return (Competicion) competicion;
 	}
 
@@ -200,12 +205,14 @@ public class Equipo implements Equipable, Clasificable{
 		return getCompeticion().getCalendario();
 	}
 
+	// Pues eso, no pongas saltos de linea en los toString
 	public String datosEquipo() {
 		
 		return String.format("Temporada: %s\nEquipo: %s %s, Grupo-%s"
 				,getTemporada(),getClub().getNombre(),getCategoria(),getLicencia(),getGrupo());
 	}
 
+	// Estas cosas se dejan para las clases de presentacion. Basta con getJugadores()
 	public String listarJugadores() {
 		String listado="Jugadores:\n";
 		
@@ -216,6 +223,7 @@ public class Equipo implements Equipable, Clasificable{
 		return listado;
 	}
 
+	// Lo mismo de arriba
 	public String listarEntrenadores() {
 		
 		String listado ="Entrenadores:\n";
@@ -228,6 +236,7 @@ public class Equipo implements Equipable, Clasificable{
 		return listado;
 	}
 
+	// Lo mismo
 	public void informeEquipo() {
 		System.out.printf("INFORME DEL EQUIPO\n%s\n%s\n%s"
 				,datosEquipo(),listarEntrenadores(),listarJugadores());

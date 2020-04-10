@@ -3,8 +3,12 @@ package personal;
 import java.util.ArrayList;
 import java.util.List;
 
+//Quieres que se pueda instanciar Persona?
 public class Persona {
+	// Un enum para sexo estaria mejor para que no pueda ponerse cualquier cosa
 	private String nombre, sexo, dni;
+	// No es mejor la fecha de nacimiento y calcular la edad
+	// si no te va a tocar actualizarlos todos anualmente
 	private int edad;
 	private List<String> telefonos, emails;
 	private List<Domicilio> domicilios;

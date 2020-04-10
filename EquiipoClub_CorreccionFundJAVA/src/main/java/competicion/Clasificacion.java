@@ -7,7 +7,11 @@ import java.util.Map;
 
 public class Clasificacion {
 	
+	// Con esto basta
 	private Collection<Equipo> equipos;
+	// Todo esto sobra. Los equipos deben implementar
+	// Clasificable y en esa interface estan todos estos datos
+	// Aqui es donde debe estar el metodo para calcular las posiciones
 	private Map<Equipo, Integer> partidosGanados;
 	private Map<Equipo, Integer> partidosEmpatados;
 	private Map<Equipo, Integer> partidosPerdidos;

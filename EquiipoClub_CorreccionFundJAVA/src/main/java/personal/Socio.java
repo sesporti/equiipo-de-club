@@ -5,6 +5,7 @@ import cuota.CuotaSocio;
 
 public class Socio extends Persona {
 	
+	// Aqui yo me hubiera fumado un puro con un int y ya esta 
 	private final NumeroSocio numeroSocio;
 	private Cuota<Socio> cuota;
 	private boolean activo;

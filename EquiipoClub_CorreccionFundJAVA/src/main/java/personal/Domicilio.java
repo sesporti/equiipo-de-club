@@ -2,6 +2,8 @@ package personal;
 
 public class Domicilio {
 
+	// Hay campos calculado: Localidad sera un tipo y conocera provincia,
+	// pais y codigoPostal
 	private String calle, letra, codigoPostal, provincia, localidad, pais;
 	private int numero, piso;
 	

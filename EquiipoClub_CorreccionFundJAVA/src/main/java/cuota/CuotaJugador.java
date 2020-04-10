@@ -4,11 +4,14 @@ import competicion.Licencia;
 
 public class CuotaJugador implements Cuota<Licencia>{
 
+	// Para que guardar el valor si depende solo de la Licencia?
 	private double cuota;
 	private Licencia tipo;
 	
+	// Dije que el constructor debajo de los accesores
 	public CuotaJugador(Licencia tipo) {
 		this.tipo = tipo;
+		// Esto lo repites al final del metodo getCuota
 		setCuota(getCuota(tipo));
 	}
 	
@@ -21,6 +24,10 @@ public class CuotaJugador implements Cuota<Licencia>{
 	}
 
 	@Override
+	// Esto son magic numbers de manual. Al menos
+	// sacalos a una clase con datos que se pueda cambiar facil
+	// mejor que hardcodeados en el negocio (esto seria
+	// la tipica bean que inyectas luego)
 	public double getCuota(Licencia tipo) {
 		double cuota = 0;
 		switch (tipo) {

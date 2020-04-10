@@ -93,10 +93,12 @@ public class Jugador extends Persona implements Familiarizable, LicenciablePerso
 	}
 	
 	public boolean tieneEquipo() {
-		
+		// Esto te peta como sea null asi que no tiene sentido el codig
+		// lo que debes poner es getEquipoActual() != null
 		return !getEquipoActual().equals(null);
 	}
 	
+	// Por eso mejor guardar la fecha de nacimiento
 	public int actualizarEdad() {
 		 setEdad(getEdad() + 1);
 		return getEdad();

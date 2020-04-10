@@ -4,6 +4,7 @@ import personal.Socio;
 
 public class CuotaSocio implements Cuota<Socio>{
 
+	// Por que este es final y el de CuotaJugador no?
 	private final double CUOTASOCIO = 100.50;
 	private Socio tipo;
 
