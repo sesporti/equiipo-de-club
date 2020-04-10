@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
+@SuppressWarnings("serial")
 public class DateHandler extends StdDeserializer<Date>{
 
 	public DateHandler() {

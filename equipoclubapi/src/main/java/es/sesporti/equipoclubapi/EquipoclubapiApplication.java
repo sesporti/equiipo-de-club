@@ -32,6 +32,7 @@ public class EquipoclubapiApplication {
 	
 	private static final Logger log = LoggerFactory.getLogger(EquipoclubapiApplication.class);
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
 		
@@ -43,7 +44,7 @@ public class EquipoclubapiApplication {
 		EntrenadorDAO entrenadorDAO = context.getBean(EntrenadorDAO.class);
 		EquipoDAO equipoDAO = context.getBean(EquipoDAO.class);
 		AsistenciaDAO asistenciaDAO = context.getBean(AsistenciaDAO.class);
-	
+		
 //		try {
 //			List<Equipo> equipos = Arrays.asList(mapper.readValue("src/main/resources/equipos2.json", Equipo[].class));
 //			equipoDAO.saveAll(equipos);

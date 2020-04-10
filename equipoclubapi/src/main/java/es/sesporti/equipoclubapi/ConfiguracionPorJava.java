@@ -29,7 +29,7 @@ public class ConfiguracionPorJava {
 //		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 //		mapper.setVisibility(PropertyAccessor.GETTER, Visibility.PROTECTED_AND_PUBLIC);
 //		mapper.setSerializationInclusion(Include.ALWAYS);
-//		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+//		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 //	    mapper.setDateFormat(df);
 		
 		
