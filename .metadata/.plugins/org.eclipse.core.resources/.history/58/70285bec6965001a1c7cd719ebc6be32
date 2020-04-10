@@ -1,7 +1,0 @@
-package competicion;
-
-public interface Licenciable {
-	
-	Licenciable getLicencia();
-
-}

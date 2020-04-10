@@ -1,9 +1,0 @@
-package competicion;
-
-import java.util.Date;
-
-public interface LicenciablePersonal {
-
-	Date fechaCaducidad();
-
-}

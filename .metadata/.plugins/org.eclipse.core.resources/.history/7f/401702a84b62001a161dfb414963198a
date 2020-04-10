@@ -1,9 +1,0 @@
-package personal;
-
-public class Jugador extends Persona implements Familiarizable{
-
-	private Licencia licencia;
-	private Equipo equipo;
-	private Cuota cuotaJugador;
-	
-}
