@@ -12,15 +12,13 @@
 <!--                 <generated-value strategy="IDENTITY"/> -->
             </id>
             
-            <basic name="fecha" optional="false">
-            	<temporal>DATE</temporal>
-            </basic>
+            <basic name="fecha" optional="false"></basic>
             
             <basic name="tipoAsistencia" optional="false">
-<!-- 				<enumerated>STRING</enumerated> -->
+<!-- 				<enumerated>STRING</enumerated> -->	<!-- NO FUNCIONA : "No enum constant es.sesporti.asistencia.Asistencia.TipoAsistencia.0" -->
             </basic>
-            
-			<many-to-one name="jugador" fetch="LAZY">
+            <!-- RELACION CON TABLA JUGADORES -->
+			<many-to-one name="jugador">
             	<join-column name="ID_JUGADOR"/>
       		</many-to-one>
 			      

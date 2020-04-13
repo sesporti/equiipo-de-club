@@ -17,11 +17,19 @@
             </basic>
 
             <basic name="categoria" optional="false">
-                <column length="50"/>
+                <column length="25"/>
             </basic>
             
+            <!-- RELACION CON TABLA JUGADORES -->
             <one-to-many name="jugadores" target-entity="es.sesporti.asistencia.Jugador" mapped-by="equipo"/>
-            <one-to-many name="entrenadores" target-entity="es.sesporti.asistencia.Entrenador" mapped-by="equipo"/>
+            
+            <!-- RELACION CON TABLA ENTRENADORES, UNION POR JOIN-TABLE -->
+            <many-to-many name="entrenadores"
+            				target-entity="es.sesporti.asistencia.Entrenador"
+            				fetch="LAZY"
+            				mapped-by="equipos">
+            </many-to-many>         
+            
         </attributes>
     </entity>
 </entity-mappings>

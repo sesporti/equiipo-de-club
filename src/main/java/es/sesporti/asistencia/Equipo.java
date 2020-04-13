@@ -6,41 +6,26 @@ import java.util.List;
 
 //import javax.persistence.OneToMany;
 
-public class Equipo implements Identificable, Comparable<Equipo>{
+public class Equipo implements Nombrable, Comparable<Equipo>{
 
-
-	protected Long id;
+	protected long id;
 	private String nombre;
 	private String categoria;
+	private String licencia;
 	private List<Jugador> jugadores;
 	private List<Entrenador> entrenadores;
-	
-	public Equipo() {}
-	
-	public Equipo(Long id, String nombre, String categoria) {
-		setId(id);
-		setNombre(nombre);
-		setCategoria(categoria);
-		setJugadores(new ArrayList<>());
-		setEntrenadores(new ArrayList<>());
-	}
-	
-	public void addEntrenador(Entrenador entrenador) {
-	    this.agregarEntrenador(entrenador);
-	    entrenador.setEquipo(this);
-	}
-	
-	public void addJugador(Jugador jugador){
-	    this.agregarJugador(jugador);
-	    jugador.setEquipo(this);
-	}
-	
+
+	//ACCESORES
 	@Override
-	public Long getId() {
-		// TODO Auto-generated method stub
+	public long getId() {
 		return id;
 	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
 
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
@@ -57,6 +42,14 @@ public class Equipo implements Identificable, Comparable<Equipo>{
 		this.categoria = categoria;
 	}
 
+	public String getLicencia() {
+		return licencia;
+	}
+
+	public void setLicencia(String licencia) {
+		this.licencia = licencia;
+	}
+
 //	@OneToMany(targetEntity=Jugador.class)
 	public List<Jugador> getJugadores() {
 		return jugadores;
@@ -65,6 +58,7 @@ public class Equipo implements Identificable, Comparable<Equipo>{
 	public void setJugadores(List<Jugador> jugadores) {
 		this.jugadores = jugadores;
 	}
+
 
 //	@OneToMany(targetEntity=Entrenador.class)
 	public List<Entrenador> getEntrenadores() {
@@ -75,76 +69,104 @@ public class Equipo implements Identificable, Comparable<Equipo>{
 		this.entrenadores = entrenadores;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	//CONSTRUCTORS
+	public Equipo() {}
+	
+	public Equipo(long id, String nombre, String categoria, String licencia) {
+		setId(id);
+		setNombre(nombre);
+		setCategoria(categoria);
+		setLicencia(licencia);
+		setJugadores(new ArrayList<>());
+		setEntrenadores(new ArrayList<>());
 	}
 	
-	public boolean agregarEntrenador (Entrenador entrenador) {
+	//METHODS
+	/**
+	 * Agrega un entrenador a un equipo, pero previamente el entrenador tiene que tener la licencia para poder entrenar un equipo con dicha licencia.
+	 * @param entrenador
+	 */
+	public void addEntrenador(Entrenador entrenador) {
+		if (entrenador.getLicencias().contains(getLicencia()) && ! getEntrenadores().contains(entrenador)) {
+			getEntrenadores().add(entrenador);
+		    entrenador.getEquipos().add(this);
+		}
+	}
+	
+	/**
+	 * Agrega el jugador al equipo si no está en él, así como actualiza el equipo en el jugador pasado como parámetro.
+	 * @param jugador
+	 */
+	public void addJugador(Jugador jugador){
+	    if (!getJugadores().contains(jugador)) {
+	    	getJugadores().add(jugador);
+		    jugador.setEquipo(this);	
+		}	
+	}
+	
+	public void addAllEntrenadores(Collection<Entrenador> entrenadores) {
+		for (Entrenador entrenador : entrenadores) {
+			addEntrenador(entrenador);
+		}		
+	}
+	
+	public void addAllJugadores(Collection<Jugador> jugadores) {
+		for (Jugador jugador : jugadores) {
+			addJugador(jugador);
+		}				
+	}
+	
+	public void removeEntrenador (Entrenador entrenador) {
+		getEntrenadores().remove(entrenador);
+		entrenador.getEquipos().remove(this);
+	}
+	
+	public void removeJugador(Jugador jugador) {
+		getJugadores().remove(jugador);
+		jugador.setEquipo(null);
 		
-		return getEntrenadores().add(entrenador);
 	}
 	
-	public boolean agregarJugador(Jugador jugador) {
-		
-		return getJugadores().add(jugador);
+	public void removeAllEntrenadores(Collection<Entrenador> entrenadores) {
+		for (Entrenador entrenador : entrenadores) {
+			removeEntrenador(entrenador);
+		}				
 	}
 	
-	public boolean agregarEntrenadores(Collection<Entrenador> entrenadores) {
-		return getEntrenadores().addAll(entrenadores);				
+	public void removeAllJugadores(Collection<Jugador> jugadores) {
+		for (Jugador jugador : jugadores) {
+			removeJugador(jugador);
+		}				
 	}
 	
-	public boolean agregarJugadores(Collection<Jugador> jugadores) {
-		return getJugadores().addAll(jugadores);				
-	}
-	
-	public boolean eliminarEntrenador (Entrenador entrenador) {
-		
-		return getEntrenadores().remove(entrenador);
-	}
-	
-	public boolean eliminarJugador(Jugador jugador) {
-		
-		return getJugadores().remove(jugador);
-	}
-	
-	public boolean eliminarEntrenadores(Collection<Entrenador> entrenadores) {
-		return getEntrenadores().removeAll(entrenadores);				
-	}
-	
-	public boolean eliminarJugadores(Collection<Jugador> jugadores) {
-		return getJugadores().removeAll(jugadores);				
-	}
-	
-	public boolean tieneJugador(Jugador jugador) {
+	public boolean hasJugador(Jugador jugador) {
 		return getJugadores().contains(jugador);
 	}
 	
-	public boolean tieneEntrenador(Entrenador entrenador) {
+	public boolean hasEntrenador(Entrenador entrenador) {
 		return getEntrenadores().contains(entrenador);
 	}
 	
-	public String mostrarJugadores() {
-		return getJugadores().toString();
+	public boolean hasAllJugadores(Collection<Jugador> jugadores) {
+		return getJugadores().containsAll(jugadores);
 	}
 	
-	public String mostrarEntrenadores() {
-		return getEntrenadores().toString();
+	public boolean hasAllEntrenadores(Collection<Entrenador> entrenadores) {
+		return getEntrenadores().addAll(entrenadores);
 	}
-
 	
 	@Override
 	public String toString() {
-		return "Equipo [getId()=" + getId() + ", getNombre()=" + getNombre() + ", getCategoria()=" + getCategoria()
-				+ ", getJugadores()=" + getJugadores() + ", getEntrenadores()=" + getEntrenadores() + "]";
+		return String.format("Equipo (%s): Nombre: %s, Categoria: %s-%s, Plantilla: %s, Tecnicos: %s",
+				getId(), getNombre(), getCategoria(), getLicencia(), getJugadores(), getEntrenadores());
 	}
 
 	@Override
 	public int compareTo(Equipo o) {
-		if (this.getNombre().equals(o.getNombre())) {
+		if (Nombrable.getComparadorPorNombre().compare(this, o) == 0) {
 			return this.getCategoria().compareTo(o.getCategoria());
-		} else {
-			return this.getNombre().compareTo(o.getNombre());
 		}
+		return Nombrable.getComparadorPorNombre().compare(this, o);
 	}
-	
+		
 }

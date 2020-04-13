@@ -11,22 +11,20 @@
             <id name="id">
 <!--                 <generated-value strategy="IDENTITY"/> -->
             </id>
-            
-            <basic name="nombre" optional="false">
-                <column length="50"/>
-            </basic>
-            
+                       
             <basic name="nif" optional="false">
                 <column length="9"/>
             </basic>
             
-            <basic name="categoria" optional="false">
-                <column length="50"/>
-            </basic>
-            
-            <many-to-one name="equipo" optional="false">
-                <join-column name="ID_EQUIPO" referencedColumnName="ID"/>
-            </many-to-one>
+            <!-- RELACION CON TABLA EQUIPOS, CREACION DE JOIN-TABLE ENTRE LAS DOS TABLAS -->
+            <many-to-many name="equipos"
+            				target-entity="es.sesporti.asistencia.Equipo"
+            				fetch="LAZY">
+            	<join-table name="ENTRENADORES_EQUIPOS">
+            		<join-column name="ID_ENTRENADOR"/>
+            		<inverse-join-column name="ID_EQUIPO"/>
+            	</join-table>
+            </many-to-many>
 
         </attributes>
     </entity>

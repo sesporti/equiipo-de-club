@@ -12,26 +12,18 @@
 <!--                 <generated-value strategy="IDENTITY"/> -->
             </id>
             
-<!--             <basic name="nombre" optional="false"> -->
-<!--                 <column length="50"/> -->
-<!--             </basic> -->
-            
             <basic name="nif" optional="false">
                 <column length="9"/>
             </basic>
+
+            <basic name="fechaNacimiento" optional="false"></basic>
             
-<!--             <basic name="poc" optional="true"> -->
-<!--                 <column length="50"/> -->
-<!--             </basic> -->
-            
-            <basic name="edad" optional="false">
-                <column length="2"/>
-            </basic>
-            
+            <!-- RELACION CON TABLA EQUIPOS -->
             <many-to-one name="equipo" optional="false">
-                <join-column name="ID_EQUIPO" referencedColumnName="ID"/>
+                <join-column name="ID_EQUIPO"/>
             </many-to-one>
             
+            <!-- RELACION CON TABLA ASISTENCIAS -->
             <one-to-many name="asistencias" target-entity="es.sesporti.asistencia.Asistencia" mapped-by="jugador"/>
 			
         </attributes>
