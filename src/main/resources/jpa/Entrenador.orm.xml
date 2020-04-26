@@ -16,6 +16,10 @@
                 <column length="9"/>
             </basic>
             
+            <basic name="licencias">
+            	<enumerated>STRING</enumerated>
+            </basic>
+            
             <!-- RELACION CON TABLA EQUIPOS, CREACION DE JOIN-TABLE ENTRE LAS DOS TABLAS -->
             <many-to-many name="equipos"
             				target-entity="es.sesporti.asistencia.Equipo"

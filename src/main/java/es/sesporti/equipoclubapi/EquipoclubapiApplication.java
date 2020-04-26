@@ -3,7 +3,6 @@ package es.sesporti.equipoclubapi;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import org.springframework.context.annotation.ImportResource;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser.Feature;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -46,30 +44,17 @@ public class EquipoclubapiApplication {
 		
 		ConfigurableApplicationContext context = SpringApplication.run(EquipoclubapiApplication.class, args);
 		
-		ObjectMapper mapper = context.getBean(ObjectMapper.class);
+//		ObjectMapper mapper = context.getBean(ObjectMapper.class);
 		
 		JugadorDAO jugadorDAO = context.getBean(JugadorDAO.class);
 		EntrenadorDAO entrenadorDAO = context.getBean(EntrenadorDAO.class);
 		EquipoDAO equipoDAO = context.getBean(EquipoDAO.class);
 		AsistenciaDAO asistenciaDAO = context.getBean(AsistenciaDAO.class);
 		
-
-		
-//		try {
-//			List<Equipo> equipos = Arrays.asList(mapper.readValue("src/main/resources/equipos2.json", Equipo[].class));
-//			equipoDAO.saveAll(equipos);
-//		} catch (JsonMappingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		cargarEquipoDesdeArchivo("src/main/resources/equipos.json", mapper, equipoDAO);
-		cargarJugadoresDesdeArchivo("src/main/resources/jugadores.json", mapper, jugadorDAO);
-		cargarEntrenadorDesdeArchivo("src/main/resources/entrenadores.json", mapper, entrenadorDAO);
-		cargarAsistenciaDesdeArchivo("src/main/resources/asistencias.json", mapper, asistenciaDAO);
+//		cargarEquipoDesdeArchivo("src/main/resources/equipos.json", mapper, equipoDAO);
+//		cargarJugadoresDesdeArchivo("src/main/resources/jugadores.json", mapper, jugadorDAO);
+//		cargarEntrenadorDesdeArchivo("src/main/resources/entrenadores.json", mapper, entrenadorDAO);
+//		cargarAsistenciaDesdeArchivo("src/main/resources/asistencias.json", mapper, asistenciaDAO);
 		
 		List<Equipo> equipos = equipoDAO.findAll();
 		equipos.stream().map(Equipo::toString).forEach(log::debug);
@@ -82,10 +67,8 @@ public class EquipoclubapiApplication {
 		
 		List<Asistencia> asistencias = asistenciaDAO.findAll();
 		asistencias.stream().map(Asistencia::toString).forEach(log::debug);
-		
-		
-		
-		context.close();
+			
+//		context.close();
 	}
 	
 	static void cargarJugadoresDesdeArchivo(String ruta, ObjectMapper mapper, JugadorDAO jugadorDAO) {
@@ -105,25 +88,8 @@ public class EquipoclubapiApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
-//		
-//		String linea = null;
-//		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-//		try (BufferedReader buffer = new BufferedReader(
-//				new InputStreamReader(new FileInputStream(ruta), "UTF-8"))) {
-//			Jugador jugador;
-//			while((linea = buffer.readLine()) != null) {
-//				if (linea.startsWith("{") && linea.endsWith("}")) {
-//					jugador = mapper.readValue(linea, Jugador.class);
-//					jugadorDAO.save(jugador);
-//					log.trace("Cargado {}", jugador);
-//				}
-//			}
-//		} catch (Exception e) {
-//			log.error("Error leyendo: {}", linea);
-//		}
 	}
+	
 	static void cargarEntrenadorDesdeArchivo(String ruta, ObjectMapper mapper, EntrenadorDAO entrenadorDAO) {
 		String linea = null;
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
@@ -158,6 +124,18 @@ public class EquipoclubapiApplication {
 		} catch (Exception e) {
 			log.error("Error leyendo: {}", linea);
 		}
+
+		//Usar este para deserializar desde archivo equipos2.json
+//		try {
+//		List<Equipo> equipos = Arrays.asList(mapper.readValue("src/main/resources/equipos2.json", Equipo[].class));
+//		equipoDAO.saveAll(equipos);
+//	} catch (JsonMappingException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} catch (JsonProcessingException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}		
 	}
 	
 	static void cargarAsistenciaDesdeArchivo(String ruta, ObjectMapper mapper, AsistenciaDAO asistenciaDAO) {

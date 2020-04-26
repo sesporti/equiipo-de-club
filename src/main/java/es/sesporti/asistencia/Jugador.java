@@ -5,8 +5,11 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-//import javax.persistence.ManyToOne;
-//import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import competicion.Categoria;
+import competicion.Licencia;
 
 public class Jugador implements Nombrable, Comparable<Jugador>{
 
@@ -14,10 +17,10 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 	private String nombre, nif, poc;
 	private LocalDate fechaNacimiento;
 	
-//	@ManyToOne
+	@ManyToOne(targetEntity=Equipo.class)
 	private Equipo equipo;
 	
-//	@OneToMany//(targetEntity=Asistencia.class)
+	@OneToMany(targetEntity=Asistencia.class)
 	private List<Asistencia> asistencias;
 	
 	//ACCESORS: GETTERS & SETTERS
@@ -79,23 +82,23 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 		this.asistencias = asistencias;
 	}
 	
-	public long getEquipoId() {
+	public long getIdEquipo() {
 		return getEquipo().getId();
 	}
 
-	public void setEquipoId(Equipo equipo) {
+	public void setIdEquipo(Equipo equipo) {
 		this.equipo.id = equipo.id;
 	}
 	
-	public String getEquipoNombre() {
+	public String getNombreEquipo() {
 		return getEquipo().getNombre();
 	}
 	
-	public String getEquipoCategoria() {
+	public Categoria getCategoriaEquipo() {
 		return getEquipo().getCategoria();
 	}
 	
-	public String getEquipoLicencia() {
+	public Licencia getLicenciaEquipo() {
 		return getEquipo().getLicencia();
 	}
 
@@ -145,16 +148,16 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 	@Override
 	public String toString() {
 		return String.format("Jugador (%s): Nombre: %s, NIF (%s), edad: %s, Persona de Contacto: %s, Equipo: %s ",
-							getId(), getNombre(), getNif(), getEdad(), getPoc(), getEquipoNombre());				
+							getId(), getNombre(), getNif(), getEdad(), getPoc(), getNombreEquipo());				
 	}
 
 	@Override
 	public int compareTo(Jugador o) {
 		
-		if (this.getNombre().equals(o.getNombre())) {
-			return this.getEdad() - o.getEdad();
+		if (Nombrable.getComparadorPorNombre().compare(this, o) == 0) {
+			return this.getFechaNacimiento().compareTo(o.getFechaNacimiento());
 		} else {
-			return this.getNombre().compareTo(o.getNombre());
+			return Nombrable.getComparadorPorNombre().compare(this, o);
 		}
 	}
 

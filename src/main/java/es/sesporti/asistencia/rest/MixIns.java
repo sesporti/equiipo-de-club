@@ -1,8 +1,8 @@
 package es.sesporti.asistencia.rest;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import competicion.Categoria;
+import competicion.Licencia;
 import es.sesporti.asistencia.Entrenador;
 import es.sesporti.asistencia.Equipo;
 import es.sesporti.asistencia.Jugador;
@@ -20,8 +22,8 @@ import es.sesporti.asistencia.Asistencia.TipoAsistencia;
 
 public class MixIns {
 	
-	@JsonIgnoreProperties(value = {"idEquipo"})//"asistencias","equipo"
-	@JsonPropertyOrder({ "nombre", "edad","poc", "nif","nombreEquipo","categoriaEquipo","licenciaEquipo"})//, "equipo","asistencias" 
+	@JsonIgnoreProperties(value = {"licenciaEquipo"})//"idEquipo","asistencias","equipo"
+	@JsonPropertyOrder({ "nombre", "edad","poc", "nif","nombreEquipo","categoriaEquipo"})//,"fechaNacimiento", "equipo","asistencias" 
 	public static interface Jugadores {
 		
 		@JsonProperty("id")
@@ -45,25 +47,25 @@ public class MixIns {
 		abstract int getEdad();
 		
 		@JsonProperty("idEquipo")
-		abstract long getEquipoId();		
+		abstract long getIdEquipo();		
 		
 		@JsonProperty("equipo")
 		abstract Equipo getEquipo();
 		
 		@JsonProperty("nombreEquipo")
-		abstract String getEquipoNombre();
+		abstract String getNombreEquipo();
 		
 		@JsonProperty("categoriaEquipo")
-		abstract String getEquipoCategoria();
+		abstract String getCategoriaEquipo();
 		
 		@JsonProperty("licenciaEquipo")
-		abstract String getEquipoLicencia();
+		abstract String getLicenciaEquipo();
 		
 		@JsonProperty("asistencias")
 		abstract List<Asistencia> getAsistencias();
 	}
 	
-	//@JsonIgnoreProperties(value = { "equipos" })
+	@JsonIgnoreProperties(value = { "nombreEquipos","idEquipos","categoriaEquipos","licenciaEquipos" })
 	@JsonPropertyOrder({ "id", "nombre", "nif", "licencias", "equipos" })
 	public static interface Entrenadores {
 		
@@ -74,13 +76,13 @@ public class MixIns {
 		@JsonProperty("nif")
 		abstract String getNif();
 		@JsonProperty("licencias")
-		abstract Set<String> getLicencias();
+		abstract Collection<Licencia> getLicencias();
 		@JsonProperty("equipos")
 		abstract List<Equipo> getEquipos();
 	}
 	
-	//@JsonIgnoreProperties(value = { "jugadores","entrenadores" })//
-	@JsonPropertyOrder({ "id", "categoria","licencia", "nombre", "jugadores","entrenadores" })
+	@JsonIgnoreProperties(value = { "nombreJugadores", "nombreEntrenadores" })//,"jugadores","entrenadores"
+	@JsonPropertyOrder({ "id","nombre","licencia","categoria","entrenadores","jugadores" })
 	public static interface Equipos {
 		
 		@JsonProperty("id")
@@ -88,17 +90,17 @@ public class MixIns {
 		@JsonProperty("nombre")
 		abstract String getNombre();
 		@JsonProperty("categoria")
-		abstract String getCategoria();
+		abstract Categoria getCategoria();
 		@JsonProperty("licencia")
-		abstract String getLicencia();
+		abstract Licencia getLicencia();
 		@JsonProperty("jugadores")
 		abstract List<Jugador> getJugadores();
 		@JsonProperty("entrenadores")
 		abstract List<Entrenador> getEntrenadores();
 	}
 	
-	@JsonIgnoreProperties(value = { "idJugador"})//,"jugador"
-	@JsonPropertyOrder({"id", "fecha", "tipoAsistencia", "nombreJugador"})
+	@JsonIgnoreProperties(value = { "idJugador","entrenadoresJugador"})//,"jugador"
+	@JsonPropertyOrder({"id", "fecha", "tipoAsistencia", "nombreJugador","equipoJugador"})
 	public static interface Asistencias {
 		
 		@JsonProperty("id")
@@ -112,11 +114,15 @@ public class MixIns {
 		@JsonProperty("jugador")
 		abstract Jugador getJugador();
 		@JsonProperty("idJugador")
-		abstract long getJugadorId();
+		abstract long getIdJugador();
 		@JsonProperty("nombreJugador")
-		abstract String getJugadorNombre();
+		abstract String getNombreJugador();
 		@JsonProperty("tipoAsistencia")
 		abstract TipoAsistencia getTipoAsistencia();
+		@JsonProperty("equipoJugador")
+		abstract Equipo getEquipoJugador();
+		@JsonProperty("entrenadoresJugador")
+		abstract List<Entrenador> getEntrenadoresJugador();
 	}
     
 }

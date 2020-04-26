@@ -15,7 +15,7 @@
             <basic name="fecha" optional="false"></basic>
             
             <basic name="tipoAsistencia" optional="false">
-<!-- 				<enumerated>STRING</enumerated> -->	<!-- NO FUNCIONA : "No enum constant es.sesporti.asistencia.Asistencia.TipoAsistencia.0" -->
+				<enumerated>STRING</enumerated> <!-- 	NO FUNCIONA : "No enum constant es.sesporti.asistencia.Asistencia.TipoAsistencia.0" -->
             </basic>
             <!-- RELACION CON TABLA JUGADORES -->
 			<many-to-one name="jugador">

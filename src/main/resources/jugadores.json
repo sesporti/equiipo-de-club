@@ -11,5 +11,5 @@
 	{"id": 10,"nombre":"Alex de la Iglesia","nif":"00000010J","poc":"Amelia Quintana","fechaNacimiento":"2008-06-10","equipo":{"id": 1}},
 	{"id": 11,"nombre":"Carlos Parra","nif":"00000011K","poc":"Juan Jose Parra","fechaNacimiento":"2008-04-01","equipo":{"id": 1}},
 	{"id": 12,"nombre":"Andres Iniesta","nif":"00000012L","poc":"Isabel Allende","fechaNacimiento":"2008-05-26","equipo":{"id": 1}},
-	{"id": 13,"nombre":"Fernando Izquierdo","nif":"12300012L","poc":"Roberto Casas","fechaNacimiento":"2007-01-26","equipo":{"id": 2}}
+	{"id": 13,"nombre":"Fernando Izquierdo","nif":"12300012L","poc":"Roberto Casas","fechaNacimiento":"2009-01-26","equipo":{"id": 2}}
 ]

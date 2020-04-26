@@ -1,8 +1,9 @@
 package es.sesporti.asistencia;
 
 import java.time.LocalDate;
+import java.util.List;
 
-//import javax.persistence.ManyToOne;
+import javax.persistence.ManyToOne;
 //import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Asistencia implements Identificable, Comparable<Asistencia> {
@@ -17,10 +18,9 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 	
 	protected long id;
 	
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "DEFAULT_LOCALE")
 	private LocalDate fecha;
 	
-//	@ManyToOne
+	@ManyToOne(targetEntity=Jugador.class)
 	private Jugador jugador;	
 	private TipoAsistencia tipoAsistencia = TipoAsistencia.SI;
 	
@@ -48,9 +48,9 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-        if (!jugador.getAsistencias().contains(this)) { // se advierte que esto puede causar problemas de rendimiento si tiene un conjunto de datos grande ya que esta operación es O (n)
-            jugador.getAsistencias().add(this);
-        }
+//        if (!jugador.getAsistencias().contains(this)) { // Da problemas al deserializar asistencias.json, ademas se advierte que esto puede causar problemas de rendimiento si tiene un conjunto de datos grande ya que esta operación es O (n)
+//            jugador.getAsistencias().add(this);
+//        }
 	}
 	
 	public TipoAsistencia getTipoAsistencia() {
@@ -61,12 +61,20 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 		this.tipoAsistencia = tipoAsistencia;
 	}
 	
-	public long getJugadorId() {
+	public long getIdJugador() {
 		return getJugador().getId();
 	}
 	
-	public String getJugadorNombre() {
+	public String getNombreJugador() {
 		return getJugador().getNombre();
+	}
+	
+	public Equipo getEquipoJugador() {
+		return getJugador().getEquipo();
+	}
+	
+	public List<Entrenador> getEntrenadoresJugador(){
+		return getJugador().getEquipo().getEntrenadores();
 	}
 
 	//CONSTRUCTORS
@@ -88,7 +96,7 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 	@Override
 	public String toString() {
 		return String.format("Asistencia (%s) => Fecha: %s, Tipo Asistencia = %s, Jugador: %s",
-				getId(), getFecha(), getTipoAsistencia(), getJugadorNombre());
+				getId(), getFecha(), getTipoAsistencia(), getNombreJugador());
 	}
 
 	@Override

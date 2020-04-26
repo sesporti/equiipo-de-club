@@ -16,8 +16,14 @@
                 <column length="50"/>
             </basic>
 
-            <basic name="categoria" optional="false">
+            <basic name="categoria">
+            	<column length="25"/>
+            	<enumerated>STRING</enumerated>
+            </basic>
+            
+            <basic name="licencia">
                 <column length="25"/>
+                <enumerated>STRING</enumerated>
             </basic>
             
             <!-- RELACION CON TABLA JUGADORES -->

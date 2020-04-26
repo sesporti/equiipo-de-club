@@ -5,14 +5,19 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.ManyToMany;
+
+import competicion.Categoria;
+import competicion.Licencia;
 
 public class Entrenador implements Nombrable, Comparable<Entrenador>{
 
 	private long id;
 	private String nombre, nif;
 	
-	@ElementCollection(targetClass=String.class)
-	private List<String> licencias;
+	@ElementCollection(targetClass=Licencia.class)
+	private Collection<Licencia> licencias;
+	@ManyToMany(targetEntity=Equipo.class)
 	private List<Equipo> equipos;
 	
 	//ACCESORS: GETTERS Y SETTERS
@@ -42,11 +47,11 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 		this.nif = nif;
 	}
 
-	public Collection<String> getLicencias() {
+	public Collection<Licencia> getLicencias() {
 		return licencias;
 	}
 
-	public void setLicencias(List<String> licencias) {
+	public void setLicencias(List<Licencia> licencias) {
 		this.licencias = licencias;
 	}
 	
@@ -56,6 +61,40 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 
 	public void setEquipos(List<Equipo> equipos) {
 		this.equipos = equipos;
+	}
+	
+	public List<String> getNombreEquipos(){
+		List<String> nombres = new ArrayList<>();
+		for (Equipo equipo : getEquipos()) {
+			nombres.add(equipo.getNombre());
+		}
+		return nombres;
+	}
+	
+	public List<Long> getIdEquipos(){
+		List<Long> idList = new ArrayList<>();
+		for (Equipo equipo : getEquipos()) {
+			idList.add(equipo.getId());
+		}
+		return idList;
+	}
+	
+	public List<Categoria> getCategoriaEquipos(){
+		List<Categoria> categorias = new ArrayList<>();
+		for (Equipo equipo : getEquipos()) {
+			if (this.getLicencias().contains(equipo.getLicencia())) {
+				categorias.add(equipo.getCategoria());
+			}			
+		}
+		return categorias;
+	}
+	
+	public List<Licencia> getLicenciaEquipos(){
+		List<Licencia> licencias = new ArrayList<>();
+		for (Equipo equipo : getEquipos()) {
+			licencias.add(equipo.getLicencia());			
+		}
+		return licencias;
 	}
 
 	//CONSTRUCTORS
@@ -70,17 +109,17 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 		setNombre(nombre);
 		setNif(nif);
 		equipos = new ArrayList<Equipo>();
-		licencias = new ArrayList<String>();
+		licencias = new ArrayList<Licencia>();
 	}
 	
 	//METHODS
-	public void addLicencia(String licencia) {
+	public void addLicencia(Licencia licencia) {
 		if (! getLicencias().contains(licencia)) {
 			getLicencias().add(licencia);
 		}		
 	}
 	
-	public void removeLicencia(String licencia) {
+	public void removeLicencia(Licencia licencia) {
 		getLicencias().remove(licencia);
 	}
 	
@@ -115,10 +154,10 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 
 	@Override
 	public int compareTo(Entrenador o) {
-		if (this.getNombre().equals(o.getNombre())) {
+		if (Nombrable.getComparadorPorNombre().compare(this, o) == 0) {
 			return this.getNif().compareTo(o.getNif());
 		} else {
-			return this.getNombre().compareTo(o.getNombre());
+			return Nombrable.getComparadorPorNombre().compare(this, o);
 		}
 	}
 

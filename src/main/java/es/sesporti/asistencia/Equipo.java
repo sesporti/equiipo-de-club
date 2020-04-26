@@ -4,15 +4,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import competicion.Categoria;
+import competicion.Licencia;
 
 public class Equipo implements Nombrable, Comparable<Equipo>{
 
 	protected long id;
 	private String nombre;
-	private String categoria;
-	private String licencia;
+	private Categoria categoria;
+	private Licencia licencia;
+	
+	@OneToMany(targetEntity=Jugador.class)
 	private List<Jugador> jugadores;
+	
+	@ManyToMany(targetEntity=Entrenador.class)	
 	private List<Entrenador> entrenadores;
 
 	//ACCESORES
@@ -34,23 +42,22 @@ public class Equipo implements Nombrable, Comparable<Equipo>{
 		this.nombre = nombre;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
-	public String getLicencia() {
+	public Licencia getLicencia() {
 		return licencia;
 	}
 
-	public void setLicencia(String licencia) {
+	public void setLicencia(Licencia licencia) {
 		this.licencia = licencia;
 	}
 
-//	@OneToMany(targetEntity=Jugador.class)
 	public List<Jugador> getJugadores() {
 		return jugadores;
 	}
@@ -59,8 +66,6 @@ public class Equipo implements Nombrable, Comparable<Equipo>{
 		this.jugadores = jugadores;
 	}
 
-
-//	@OneToMany(targetEntity=Entrenador.class)
 	public List<Entrenador> getEntrenadores() {
 		return entrenadores;
 	}
@@ -68,11 +73,27 @@ public class Equipo implements Nombrable, Comparable<Equipo>{
 	public void setEntrenadores(List<Entrenador> entrenadores) {
 		this.entrenadores = entrenadores;
 	}
+	
+	public List<String> getNombreJugadores() {
+		List<String> nombres = new ArrayList<>();
+		for (Jugador jugador : getJugadores()) {
+			nombres.add(jugador.getNombre());
+		}
+		return nombres;
+	}
+	
+	public List<String> getNombreEntrenadores() {
+		List<String> nombres = new ArrayList<>();
+		for (Entrenador entrenador : getEntrenadores()) {
+			nombres.add(entrenador.getNombre());
+		}
+		return nombres;
+	}	
 
 	//CONSTRUCTORS
 	public Equipo() {}
 	
-	public Equipo(long id, String nombre, String categoria, String licencia) {
+	public Equipo(long id, String nombre, Categoria categoria, Licencia licencia) {
 		setId(id);
 		setNombre(nombre);
 		setCategoria(categoria);
