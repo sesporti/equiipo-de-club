@@ -123,13 +123,17 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 		getLicencias().remove(licencia);
 	}
 	
+	public boolean isEquipoValido(Equipo equipo) {
+		return getLicencias().contains(equipo.getLicencia()) && ! getEquipos().contains(equipo);
+	}
+	
 	/**
 	 * Agrega un equipo al entrenador siempre y cuando el entrenador tenga la licencia para poder entrenar a dicho equipo.
 	 * Así mismo, si el entrenador cumple esta condición y no esta incluido como entrendor del equipo se le incluye.
 	 * @param equipo (tiene una licencia que debe poseer el entrenador para poder ser agregado)
 	 */
 	public void addEquipo(Equipo equipo) {
-		if (getLicencias().contains(equipo.getLicencia()) && ! getEquipos().contains(equipo)) {
+		if (isEquipoValido(equipo)) {
 			getEquipos().add(equipo);
 			if (!equipo.getEntrenadores().contains(this)) {
 				equipo.getEntrenadores().add(this);

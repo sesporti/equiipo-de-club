@@ -116,6 +116,7 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 		setPoc(poc);
 		setFechaNacimiento(fechaNacimiento);
 		setEquipo(equipo);
+		
 		asistencias = new ArrayList<Asistencia>();
 	}
 	
