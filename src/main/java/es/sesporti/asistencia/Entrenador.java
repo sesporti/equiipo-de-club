@@ -7,10 +7,13 @@ import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.ManyToMany;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import competicion.Categoria;
 import competicion.Licencia;
 
-public class Entrenador implements Nombrable, Comparable<Entrenador>{
+public class Entrenador implements Nombrable, EntrenadorEquipo, Comparable<Entrenador>{
 
 	private long id;
 	private String nombre, nif;
@@ -60,7 +63,9 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 	}
 
 	public void setEquipos(List<Equipo> equipos) {
-		this.equipos = equipos;
+		for (Equipo equipo : equipos) {
+			addEquipo(equipo);
+		}
 	}
 	
 	public List<String> getNombreEquipos(){
@@ -123,22 +128,28 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 		getLicencias().remove(licencia);
 	}
 	
-	public boolean isEquipoValido(Equipo equipo) {
-		return getLicencias().contains(equipo.getLicencia()) && ! getEquipos().contains(equipo);
-	}
-	
 	/**
 	 * Agrega un equipo al entrenador siempre y cuando el entrenador tenga la licencia para poder entrenar a dicho equipo.
 	 * Así mismo, si el entrenador cumple esta condición y no esta incluido como entrendor del equipo se le incluye.
 	 * @param equipo (tiene una licencia que debe poseer el entrenador para poder ser agregado)
 	 */
 	public void addEquipo(Equipo equipo) {
-		if (isEquipoValido(equipo)) {
-			getEquipos().add(equipo);
-			if (!equipo.getEntrenadores().contains(this)) {
-				equipo.getEntrenadores().add(this);
+		Logger log = LoggerFactory.getLogger(Entrenador.class);
+		try {
+			if (isEntrenadorValidoParaEquipo(this, equipo)) {
+				getEquipos().add(equipo);
+				if (!equipo.getEntrenadores().contains(this)) {
+					equipo.getEntrenadores().add(this);
+				}
 			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		} finally {
+			log.debug("El equipo {} NO puede ser entrenado por el entrenador {},"
+					+ " distinto tipo de Licencia", equipo.getNombre(), getNombre());
 		}
+		
+		
 	}
 	
 	/**
@@ -191,6 +202,6 @@ public class Entrenador implements Nombrable, Comparable<Entrenador>{
 		} else if (!nif.equals(other.nif))
 			return false;
 		return true;
-	}	
-	
+	}
+
 }

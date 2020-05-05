@@ -129,7 +129,7 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 		
 		LocalDate ahora = LocalDate.now();
 		Period periodo = Period.between(getFechaNacimiento(), ahora);
-		
+				
 		return periodo.getYears();
 	}
 	

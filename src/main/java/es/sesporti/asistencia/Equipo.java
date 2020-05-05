@@ -7,10 +7,13 @@ import java.util.List;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import competicion.Categoria;
 import competicion.Licencia;
 
-public class Equipo implements Nombrable, Comparable<Equipo>{
+public class Equipo implements Nombrable, EntrenadorEquipo, Comparable<Equipo>{
 
 	protected long id;
 	private String nombre;
@@ -71,7 +74,7 @@ public class Equipo implements Nombrable, Comparable<Equipo>{
 	}
 
 	public void setEntrenadores(List<Entrenador> entrenadores) {
-		this.entrenadores = entrenadores;
+		addAllEntrenadores(entrenadores);
 	}
 	
 	public List<String> getNombreJugadores() {
@@ -104,19 +107,25 @@ public class Equipo implements Nombrable, Comparable<Equipo>{
 	
 	//METHODS
 
-	public boolean isEntrenadorValido(Entrenador entrenador) {
-		return entrenador.getLicencias().contains(getLicencia()) && ! getEntrenadores().contains(entrenador);
-	}
-	
 	/**
 	 * Agrega un entrenador a un equipo, pero previamente el entrenador tiene que tener la licencia para poder entrenar un equipo con dicha licencia.
 	 * @param entrenador
 	 */
 	public void addEntrenador(Entrenador entrenador) {
-		if (isEntrenadorValido(entrenador)) {
-			getEntrenadores().add(entrenador);
-		    entrenador.getEquipos().add(this);
+		Logger log = LoggerFactory.getLogger(Equipo.class);
+		try {
+			if (isEntrenadorValidoParaEquipo(entrenador, this)) {
+				getEntrenadores().add(entrenador);
+			    entrenador.getEquipos().add(this);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		} finally {
+			log.debug("El entrenador {} no puede entrenar al equipo {} "
+					+ "por NO disponer de la Licencia requerida", entrenador.getNombre(), getNombre());
 		}
+		
+		
 	}
 	
 	/**
@@ -194,5 +203,5 @@ public class Equipo implements Nombrable, Comparable<Equipo>{
 		}
 		return Nombrable.getComparadorPorNombre().compare(this, o);
 	}
-		
+
 }

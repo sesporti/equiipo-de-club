@@ -2,7 +2,6 @@ package es.sesporti.asistencia.repositorios;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -18,26 +17,23 @@ import es.sesporti.asistencia.Jugador;
 						//exported=false,
 						itemResourceRel="jugador",
 						collectionResourceRel="jugadores")
-public interface JugadorDAO extends JpaRepository<Jugador, Long>{
+public interface JugadorDAO extends JpaRepository<Jugador, Long>, JugadorDAOCustom {
 	
 	@RestResource(path="nombre")
-	Jugador findByNombreContaining(String txt);
+	Jugador findByNombreContaining(@Param("txt") String txt);
 	@RestResource(path="nombre-contiene")
-	List<Jugador> findAllByNombreContaining(String txt);
+	List<Jugador> findAllByNombreContaining(@Param("txt") String txt);
 	@RestResource(path="nombre-equipo-contiene")
-	List<Jugador> findAllByEquipoNombreContaining(String txt);
+	List<Jugador> findAllByEquipoNombreContaining(@Param("txt") String txt);
 	@RestResource(path="categoria-equipo")
-	List<Jugador> findAllByEquipoCategoria(Categoria categoria);
+	List<Jugador> findAllByEquipoCategoria(@Param("categoria") Categoria categoria);
 	@RestResource(path="licencia-equipo")
-	List<Jugador> findAllByEquipoLicencia(Licencia licencia);
+	List<Jugador> findAllByEquipoLicencia(@Param("licencia") Licencia licencia);
 	@RestResource(path="poc-contiene")
-	List<Jugador> findAllByPocContaining(String txt);
+	List<Jugador> findAllByPocContaining(@Param("txt") String txt);
 	@RestResource(path="nacimiento-despues-fecha")
 	List<Jugador> findByFechaNacimientoAfter(@Param("fecha")LocalDate fecha);
 	@RestResource(path="nacimiento-entre-fechas")
 	List<Jugador> findByFechaNacimientoBetween(@Param("fechaIni")LocalDate fechaIni,
 												@Param("fechaFin")LocalDate fechaFin);
-// No funciona, pide que exista el campo edad en Jugador, pendiente de explicar en asignatura.
-//	List<Jugador> findByEdad(int edad);
-
 }

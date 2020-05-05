@@ -1,4 +1,6 @@
-# EQUIPO DE UN CLUB
+# EQUIPO-DE-CLUB-API
+
+## **Supuesto de la aplicación**
 
 Se solicita una aplicación que pueda gestionar un equipo de un club, aunque inicialmente el equipo es de futbol, en un futuro próximo sería para gestionar equipos de todo tipo de deportes.
 
@@ -15,10 +17,36 @@ La aplicación debe tener un servicio de suscripción para que el que desee, pue
 
 El uso de aplicación va a ser inminentemente para uso en smartphone, aunque debe ser multiplataforma.
 
-La documentación del proyecto se puede consultar en el siguiente link:
+---
 
-## [Wiki Proyecto](https://git.institutomilitar.com/sesporti/equiipo-de-club/wikis/home)
+## **Documentación del proyecto**
 
-Este proyecto tiene dependecia en su implementación de otro proyecto que se encuentra en el siguiente repositorio:
+La **documentación del proyecto** se puede consultar en el siguiente link:
 
-## [EquiipoClub](https://git.institutomilitar.com/sesporti/equiipoclub.git)
+> ### [Wiki Proyecto](https://git.institutomilitar.com/sesporti/equiipo-de-club/wikis/home)
+
+## **Proyecto vinculado a otro repositorio (proyecto)**
+
+Este proyecto tiene **dependecia en su implementación de otro proyecto** que se encuentra en el siguiente repositorio:
+
+> ### [EquiipoClub](https://git.institutomilitar.com/sesporti/equiipoclub.git)
+
+---
+
+## **Despliegue en local**
+
+Antes de arrancar la API se debe arrancar la BD. Se usa [H2](https://h2database.com/html/main.html) en modo servidor.
+Se puede levantar la BD usando el archivo `h2-version.jar`. Comprobar que tenemos acceso a la consola de H2 y que está corriendo.
+
+Las propiedades de conexión son las que vienen por defecto:
+
+> url=jdbc:h2:tcp://localhost/~/testEquipoClub  
+> username=sa  
+> password=basedatosh2  
+> Entonces ejecutar la API con la última [release](https://git.institutomilitar.com/sesporti/equiipo-de-club/releases).
+
+Mejor desde una consola para ver el log `java -jar equipoclubapi-VERSION.jar`.
+
+Puedes utilizar esta colección Postman para probarla
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/10815375/Szmb7zkg)

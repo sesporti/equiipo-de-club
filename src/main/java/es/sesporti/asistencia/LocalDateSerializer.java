@@ -17,7 +17,7 @@ public class LocalDateSerializer extends StdSerializer<LocalDate>{
 
 	@Override
 	public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-		gen.writeString(value.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")));//.ISO_LOCAL_DATE));
+		gen.writeString(value.format(DateTimeFormatter.ISO_LOCAL_DATE));//.ofPattern("dd-MM-yyyy"))
 		
 	}
 	

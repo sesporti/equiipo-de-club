@@ -1,10 +1,12 @@
 package es.sesporti.equipoclubapi;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import es.sesporti.asistencia.Asistencia;
 import es.sesporti.asistencia.Entrenador;
 import es.sesporti.asistencia.Equipo;
@@ -13,6 +15,7 @@ import es.sesporti.asistencia.rest.MixIns;
 
 @Configuration
 @PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties" })
+@ComponentScan("es.sesporti.asistencia.rest")//para JugadorController y ConfiguracionRest que escanee el @Controller
 public class ConfiguracionPorJava {
 	
 	@Bean

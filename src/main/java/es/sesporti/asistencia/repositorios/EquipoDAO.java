@@ -3,6 +3,7 @@ package es.sesporti.asistencia.repositorios;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 //import org.springframework.stereotype.Repository;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -18,22 +19,24 @@ import es.sesporti.asistencia.Equipo;
 public interface EquipoDAO extends JpaRepository<Equipo, Long> {
 
 	@RestResource(path="nombre-contiene")
-	List<Equipo> findByNombreContaining(String nombre);
+	List<Equipo> findByNombreContaining(@Param("nombre") String nombre);
 	@RestResource(path="categoria")
-	List<Equipo> findByCategoria (Categoria categoria);
+	List<Equipo> findByCategoria (@Param("categoria") Categoria categoria);
 	@RestResource(path="licencia")
-	List<Equipo> findByLicencia (Licencia licencia);
+	List<Equipo> findByLicencia (@Param("licencia") Licencia licencia);
 	@RestResource(path="licencia-y-categoria")
-	List<Equipo> findByLicenciaAndCategoria (Licencia licencia, Categoria categoria);
+	List<Equipo> findByLicenciaAndCategoria (@Param("licencia") Licencia licencia,
+			@Param("categoria") Categoria categoria);
 	@RestResource(path="nombre-jugador")
-	Equipo findByJugadoresNombre(String nombreJugador);
+	Equipo findByJugadoresNombre(@Param("nombreJugador") String nombreJugador);
 	@RestResource(path="nombre-entrenador")
-	List<Equipo> findByEntrenadoresNombre(String nombreEntrenador);
+	List<Equipo> findByEntrenadoresNombre(@Param("nombreEntrenador") String nombreEntrenador);
 	@RestResource(path="nombre-entrenador-contiene")
-	List<Equipo> findByEntrenadoresNombreContaining(String txtEntrenador);
+	List<Equipo> findByEntrenadoresNombreContaining(@Param("txtEntrenador") String txtEntrenador);
 	@RestResource(path="nombre-contiene-y-categoria")
-	List<Equipo> findByNombreContainingAndCategoria(String nombre, Categoria categoria);
+	List<Equipo> findByNombreContainingAndCategoria(@Param("nombre") String nombre,
+			@Param("categoria") Categoria categoria);
 	@RestResource(path="nombre-jugador-contiene")
-	List<Equipo> findByJugadoresNombreContaining(String txtNombreJugador);
+	List<Equipo> findByJugadoresNombreContaining(@Param("txtNombreJugador") String txtNombreJugador);
 	
 }

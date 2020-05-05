@@ -51,11 +51,13 @@ public class EquipoclubapiApplication {
 		EquipoDAO equipoDAO = context.getBean(EquipoDAO.class);
 		AsistenciaDAO asistenciaDAO = context.getBean(AsistenciaDAO.class);
 		
-//		cargarEquipoDesdeArchivo("src/main/resources/equipos.json", mapper, equipoDAO);
+		//Descomentar para carga inicial de datos en BD,s.
+//		cargarEquiposDesdeArchivo("src/main/resources/equipos.json", mapper, equipoDAO);
 //		cargarJugadoresDesdeArchivo("src/main/resources/jugadores.json", mapper, jugadorDAO);
-//		cargarEntrenadorDesdeArchivo("src/main/resources/entrenadores.json", mapper, entrenadorDAO);
-//		cargarAsistenciaDesdeArchivo("src/main/resources/asistencias.json", mapper, asistenciaDAO);
+//		cargarEntrenadoresDesdeArchivo("src/main/resources/entrenadores.json", mapper, entrenadorDAO);
+//		cargarAsistenciasDesdeArchivo("src/main/resources/asistencias.json", mapper, asistenciaDAO);
 		
+		//Entidades
 		List<Equipo> equipos = equipoDAO.findAll();
 		equipos.stream().map(Equipo::toString).forEach(log::debug);
 		
@@ -67,7 +69,21 @@ public class EquipoclubapiApplication {
 		
 		List<Asistencia> asistencias = asistenciaDAO.findAll();
 		asistencias.stream().map(Asistencia::toString).forEach(log::debug);
-			
+		
+		//Metodos personalizados con RESTful
+		List<Jugador> jugadoresPorEdadCategoria = jugadorDAO.getJugadoresPorEdadesCategoria(11,12);//ALEVINES
+		jugadoresPorEdadCategoria.stream().map(Jugador::toString).forEach(log::warn);
+		
+		List<Jugador> jugadoresPorEdad = jugadorDAO.getJugadoresPorEdad(10);//por edad, no por Categoria
+		jugadoresPorEdad.stream().map(Jugador::toString).forEach(log::warn);
+		
+		//Comprobación de asignacion de entrenador a equipo válido
+//		Entrenador entrenadorJuvenil = entrenadorDAO.getOne((long) 2);
+//		entrenadorJuvenil.addEquipo(equipoDAO.getOne((long) 1));//equipo Alevin
+//		equipoDAO.getOne((long) 2).addEntrenador(entrenadorDAO.getOne((long)3));//equipo Infantil
+//		
+//		log.debug("Entrenadores Infantil B: {}", equipoDAO.getOne((long) 2).getEntrenadores());
+		
 //		context.close();
 	}
 	
@@ -90,7 +106,7 @@ public class EquipoclubapiApplication {
 		}
 	}
 	
-	static void cargarEntrenadorDesdeArchivo(String ruta, ObjectMapper mapper, EntrenadorDAO entrenadorDAO) {
+	static void cargarEntrenadoresDesdeArchivo(String ruta, ObjectMapper mapper, EntrenadorDAO entrenadorDAO) {
 		String linea = null;
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		try (BufferedReader buffer = new BufferedReader(
@@ -108,7 +124,7 @@ public class EquipoclubapiApplication {
 		}
 	}
 
-	static void cargarEquipoDesdeArchivo(String ruta, ObjectMapper mapper, EquipoDAO equipoDAO) {
+	static void cargarEquiposDesdeArchivo(String ruta, ObjectMapper mapper, EquipoDAO equipoDAO) {
 		String linea = null;
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		try (BufferedReader buffer = new BufferedReader(
@@ -123,22 +139,10 @@ public class EquipoclubapiApplication {
 			}
 		} catch (Exception e) {
 			log.error("Error leyendo: {}", linea);
-		}
-
-		//Usar este para deserializar desde archivo equipos2.json
-//		try {
-//		List<Equipo> equipos = Arrays.asList(mapper.readValue("src/main/resources/equipos2.json", Equipo[].class));
-//		equipoDAO.saveAll(equipos);
-//	} catch (JsonMappingException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	} catch (JsonProcessingException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}		
+		}	
 	}
 	
-	static void cargarAsistenciaDesdeArchivo(String ruta, ObjectMapper mapper, AsistenciaDAO asistenciaDAO) {
+	static void cargarAsistenciasDesdeArchivo(String ruta, ObjectMapper mapper, AsistenciaDAO asistenciaDAO) {
 		String linea = null;
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		try (BufferedReader buffer = new BufferedReader(
