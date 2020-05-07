@@ -146,6 +146,10 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 		}		
     }
 	
+	public void removeAsistencia(Asistencia asistencia) {
+		getAsistencias().remove(asistencia);
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("Jugador (%s): Nombre: %s, NIF (%s), edad: %s, Persona de Contacto: %s, Equipo: %s ",
