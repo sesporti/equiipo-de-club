@@ -35,17 +35,17 @@ Este proyecto tiene **dependecia en su implementación de otro proyecto** que se
 
 ## **Despliegue en local**
 
-Antes de arrancar la API se debe arrancar la BD. Se usa [H2](https://h2database.com/html/main.html) en modo servidor.
-Se puede levantar la BD usando el archivo `h2-version.jar`. Comprobar que tenemos acceso a la consola de H2 y que está corriendo.
+Antes de arrancar la API se debe arrancar la BD. Se usa [H2](https://h2database.com/html/main.html) en _modo servidor_.
+Se puede levantar la BD usando el archivo [`h2-version.jar`](./assets/despliegueLocal/). Comprobar que tenemos acceso a la consola de H2 y que está corriendo.
 
-Las propiedades de conexión son las que vienen por defecto:
+Las propiedades de conexión a la BD,s son las que vienen a continuación:
 
 > url=jdbc:h2:tcp://localhost/~/testEquipoClub  
 > username=sa  
 > password=basedatosh2  
-> Entonces ejecutar la API con la última [release](https://git.institutomilitar.com/sesporti/equiipo-de-club/releases).
+> Entonces ejecutar la API con la última [versión](https://git.institutomilitar.com/sesporti/equiipo-de-club/tags/0.0.1-SNAPSHOT).
 
-Mejor desde una consola para ver el log `java -jar equipoclubapi-VERSION.jar`.
+Mejor desde una consola para ver el log [`java -jar equipoclubapi-VERSION.jar`](./assets/despliegueLocal/).
 
 Puedes utilizar esta colección Postman para probarla
 
