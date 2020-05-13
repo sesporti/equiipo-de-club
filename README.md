@@ -43,7 +43,7 @@ Las propiedades de conexión a la BD,s son las que vienen a continuación:
 > url=jdbc:h2:tcp://localhost/~/testEquipoClub  
 > username=sa  
 > password=basedatosh2  
-> Entonces ejecutar la API con la última [versión](https://git.institutomilitar.com/sesporti/equiipo-de-club/tags/0.1-SNAPSHOT).
+> Entonces ejecutar la API con la última versión
 
 Mejor desde una consola para ver el log [`java -jar equipoclubapi-VERSION.jar`](./assets/despliegueLocal/).
 
