@@ -23,7 +23,7 @@ public class JugadorDAOImpl implements JugadorDAOCustom{
 	
 	
 	@Override
-	public List<Jugador> getJugadoresPorEdadesCategoria(int edadMinima, int edadMaxima) {
+	public List<Jugador> getJugadoresPorEdadesLicencia(int edadMinima, int edadMaxima) {
 		
 		LocalDate hoy = LocalDate.now();
 		

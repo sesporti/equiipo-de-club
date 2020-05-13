@@ -24,12 +24,12 @@ public class JugadorController {
 		this.jugadorDAO = jugadorDAO;
 	}
 	
-	@GetMapping("/por-edades-en-categoria")
+	@GetMapping("/por-edades-en-licencia")
 	@ResponseBody
-	public CollectionModel<PersistentEntityResource> getJugadoresPorEdadesCategoria (@RequestParam int edadMinima,
+	public CollectionModel<PersistentEntityResource> getJugadoresPorEdadesLicencia (@RequestParam int edadMinima,
 			@RequestParam int edadMaxima, PersistentEntityResourceAssembler assembler){
 		
-		List<Jugador> jugadores = jugadorDAO.getJugadoresPorEdadesCategoria(edadMinima, edadMaxima);
+		List<Jugador> jugadores = jugadorDAO.getJugadoresPorEdadesLicencia(edadMinima, edadMaxima);
 		
 		return assembler.toCollectionModel(jugadores);
 	}

@@ -6,7 +6,7 @@ import es.sesporti.asistencia.Jugador;
 
 public interface JugadorDAOCustom {
 	
-	List<Jugador> getJugadoresPorEdadesCategoria(int edadMinima, int edadMaxima);
+	List<Jugador> getJugadoresPorEdadesLicencia(int edadMinima, int edadMaxima);
 	List<Jugador> getJugadoresPorEdad(int edadJugador);
 
 }

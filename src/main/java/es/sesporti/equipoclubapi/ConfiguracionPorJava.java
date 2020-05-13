@@ -15,7 +15,7 @@ import es.sesporti.asistencia.rest.MixIns;
 
 @Configuration
 @PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties" })
-@ComponentScan("es.sesporti.asistencia.rest")//para JugadorController y ConfiguracionRest que escanee el @Controller
+@ComponentScan("es.sesporti.asistencia")//para JugadorController y ConfiguracionRest que escanee el @Controller
 public class ConfiguracionPorJava {
 	
 	@Bean

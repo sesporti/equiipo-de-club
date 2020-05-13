@@ -7,9 +7,20 @@
 
     <entity class="es.sesporti.asistencia.Jugador" access="FIELD">
         <table name="JUGADORES"/>
+        
+        <entity-listeners>
+            <entity-listener class="es.sesporti.asistencia.repositorios.JugadorListener">
+<!--                 <pre-persist method-name="antesDeGuardar"/> -->
+                <post-persist method-name="despuesDeGuardar"/>
+                <pre-remove method-name="antesDeBorrar"/>
+<!--                 <pre-update method-name="antesDeGuardar"/> -->
+                <post-update method-name="despuesDeGuardar"/>                
+            </entity-listener>
+        </entity-listeners>
+        
         <attributes>
             <id name="id">
-<!--                 <generated-value strategy="IDENTITY"/> -->
+                <generated-value strategy="IDENTITY"/>
             </id>
             
             <basic name="nif" optional="false">
@@ -19,7 +30,7 @@
             <basic name="fechaNacimiento" optional="false"></basic>
             
             <!-- RELACION CON TABLA EQUIPOS -->
-            <many-to-one name="equipo" optional="false">
+            <many-to-one name="equipo">
                 <join-column name="ID_EQUIPO"/>
             </many-to-one>
             

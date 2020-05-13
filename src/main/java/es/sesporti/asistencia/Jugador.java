@@ -71,6 +71,11 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 	}
 
 	public void setEquipo(Equipo equipo) {
+		//Esta comprobación se realiza por la relacion de bidireccionalidad con equipo, hay que asegurarse
+		//que al anterior equipo se le elimina el jugador de su lista antes de asignarselo al nuevo equipo.
+		if (this.equipo != null) {
+			this.equipo.removeJugador(this);
+		}
 		this.equipo = equipo;
 	}
 	
@@ -80,44 +85,65 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 
 	public void setAsistencias(List<Asistencia> asistencias) {
 		this.asistencias = asistencias;
+	
 	}
 	
 	public long getIdEquipo() {
 		return getEquipo().getId();
 	}
 
-	public void setIdEquipo(Equipo equipo) {
-		this.equipo.id = equipo.id;
+	public void setIdEquipo(Long idEquipo) {
+		getEquipo().setId(idEquipo);;
 	}
 	
 	public String getNombreEquipo() {
 		return getEquipo().getNombre();
 	}
 	
+	public void setNombreEquipo(String nombre) {
+		getEquipo().setNombre(nombre);
+	}
+	
 	public Categoria getCategoriaEquipo() {
 		return getEquipo().getCategoria();
+	}
+	
+	public void setCategoriaEquipo(Categoria categoria) {
+		getEquipo().setCategoria(categoria);
 	}
 	
 	public Licencia getLicenciaEquipo() {
 		return getEquipo().getLicencia();
 	}
+	
+	public void setLicenciaEquipo(Licencia licencia) {
+		getEquipo().setLicencia(licencia);
+	}
 
 	//CONSTRUCTORS
-	public Jugador() {}
+	public Jugador() {
+		asistencias = new ArrayList<Asistencia>();
+	}
+	
+	public Jugador(long id, String nif, LocalDate fechaNacimiento) {
+		this(id, nif, fechaNacimiento, null);
+	}
 	
 	public Jugador(long id, String nif, LocalDate fechaNacimiento, Equipo equipo) {
-		this(id, "PENDIENTE DEFINICION", nif, "SIN POC, MAYOR DE EDAD", fechaNacimiento, equipo);
+		this(id, "PENDIENTE DEFINICION", nif, "", fechaNacimiento, equipo);
+		int edad = getEdad();
+		String msjPoc = (edad > 17)? "MAYOR DE EDAD": "PENDIENTE DE DEFINICION";
+		setPoc(msjPoc);
 	}
 	
 	public Jugador (long id, String nombre, String nif, String poc, LocalDate fechaNacimiento, Equipo equipo) {
+		this();
 		setId(id);
 		setNombre(nombre);
 		setNif(nif);
 		setPoc(poc);
 		setFechaNacimiento(fechaNacimiento);
-		setEquipo(equipo);
-		
-		asistencias = new ArrayList<Asistencia>();
+		setEquipo(equipo);		
 	}
 	
 	//METHODS
@@ -125,8 +151,7 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 	 * Devuelve la edad actual teniendo en cuenta el campo fechaNacimiento.
 	 * @return int
 	 */
-	public int getEdad() {
-		
+	public int getEdad() {		
 		LocalDate ahora = LocalDate.now();
 		Period periodo = Period.between(getFechaNacimiento(), ahora);
 				
@@ -134,6 +159,7 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 	}
 	
 	/**
+	 * Se utiliza para dar bidireccionalidad a la relacion @OneToMany-@ManyToOne.
 	 * Agrega la asistencia al jugador si no existe y actualiza el jugador en la asistencia pasada como parametro.
 	 * @param asistencia (si no existe el jugador en la asistencia lo añade)
 	 */
@@ -146,7 +172,11 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 		}		
     }
 	
-	public void removeAsistencia(Asistencia asistencia) {
+	/**
+	 * Elimina la asistencia al jugador si existe.
+	 * @param asistencia
+	 */
+	public void removeAsistencia(Asistencia asistencia) { 
 		getAsistencias().remove(asistencia);
 	}
 	
@@ -156,6 +186,9 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 							getId(), getNombre(), getNif(), getEdad(), getPoc(), getNombreEquipo());				
 	}
 
+	/**
+	 * Compara por {@code nombre} y si son equals compara por {@code fechaNacimiento}. 
+	 */
 	@Override
 	public int compareTo(Jugador o) {
 		
@@ -175,6 +208,10 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 		return result;
 	}
 
+	/**
+	 * Dos jugadores se consideran equals si tiene el mismo {@code id} y {@code nif}.
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -193,8 +230,5 @@ public class Jugador implements Nombrable, Comparable<Jugador>{
 			return false;
 		return true;
 	}
-	
-	
-	
 	
 }

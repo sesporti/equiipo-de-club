@@ -7,19 +7,18 @@ import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.ManyToMany;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import competicion.Categoria;
 import competicion.Licencia;
 
 public class Entrenador implements Nombrable, EntrenadorEquipo, Comparable<Entrenador>{
 
 	private long id;
+	
 	private String nombre, nif;
 	
 	@ElementCollection(targetClass=Licencia.class)
 	private Collection<Licencia> licencias;
+	
 	@ManyToMany(targetEntity=Equipo.class)
 	private List<Equipo> equipos;
 	
@@ -62,10 +61,13 @@ public class Entrenador implements Nombrable, EntrenadorEquipo, Comparable<Entre
 		return equipos;
 	}
 
-	public void setEquipos(List<Equipo> equipos) {
-		for (Equipo equipo : equipos) {
-			addEquipo(equipo);
+	public void setEquipos(List<Equipo> equipos) {	
+		if (this.equipos != null) {
+			for (Equipo equipo : this.equipos) {
+				equipo.removeEntrenador(this);
+			}
 		}
+		this.equipos = equipos;
 	}
 	
 	public List<String> getNombreEquipos(){
@@ -103,18 +105,20 @@ public class Entrenador implements Nombrable, EntrenadorEquipo, Comparable<Entre
 	}
 
 	//CONSTRUCTORS
-	public Entrenador() {}
+	public Entrenador() {
+		equipos = new ArrayList<Equipo>();
+		licencias = new ArrayList<Licencia>();
+	}
 	
 	public Entrenador(long id, String nif) {
 		this(id, "PENDIENTE DEFINICION", nif);
 	}
 	
 	public Entrenador(long id, String nombre, String nif) {
+		this();
 		setId(id);
 		setNombre(nombre);
 		setNif(nif);
-		equipos = new ArrayList<Equipo>();
-		licencias = new ArrayList<Licencia>();
 	}
 	
 	//METHODS
@@ -134,22 +138,12 @@ public class Entrenador implements Nombrable, EntrenadorEquipo, Comparable<Entre
 	 * @param equipo (tiene una licencia que debe poseer el entrenador para poder ser agregado)
 	 */
 	public void addEquipo(Equipo equipo) {
-		Logger log = LoggerFactory.getLogger(Entrenador.class);
-		try {
-			if (isEntrenadorValidoParaEquipo(this, equipo)) {
-				getEquipos().add(equipo);
-				if (!equipo.getEntrenadores().contains(this)) {
-					equipo.getEntrenadores().add(this);
-				}
+		if (! getEquipos().contains(equipo)) {
+			getEquipos().add(equipo);
+			if (!equipo.getEntrenadores().contains(this) ) {
+			equipo.getEntrenadores().add(this);	
 			}
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		} finally {
-			log.debug("El equipo {} NO puede ser entrenado por el entrenador {},"
-					+ " distinto tipo de Licencia", equipo.getNombre(), getNombre());
 		}
-		
-		
 	}
 	
 	/**
@@ -158,7 +152,6 @@ public class Entrenador implements Nombrable, EntrenadorEquipo, Comparable<Entre
 	 */
 	public void removeEquipo(Equipo equipo) {
 		getEquipos().remove(equipo);
-		equipo.getEntrenadores().remove(this);
 	}	
 	
 	@Override

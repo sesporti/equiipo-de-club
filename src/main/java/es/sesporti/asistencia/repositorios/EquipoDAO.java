@@ -1,6 +1,7 @@
 package es.sesporti.asistencia.repositorios;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -32,11 +33,11 @@ public interface EquipoDAO extends JpaRepository<Equipo, Long> {
 	@RestResource(path="nombre-entrenador")
 	List<Equipo> findByEntrenadoresNombre(@Param("nombreEntrenador") String nombreEntrenador);
 	@RestResource(path="nombre-entrenador-contiene")
-	List<Equipo> findByEntrenadoresNombreContaining(@Param("txtEntrenador") String txtEntrenador);
+	Set<Equipo> findByEntrenadoresNombreContaining(@Param("txtEntrenador") String txtEntrenador);
 	@RestResource(path="nombre-contiene-y-categoria")
 	List<Equipo> findByNombreContainingAndCategoria(@Param("nombre") String nombre,
 			@Param("categoria") Categoria categoria);
 	@RestResource(path="nombre-jugador-contiene")
-	List<Equipo> findByJugadoresNombreContaining(@Param("txtNombreJugador") String txtNombreJugador);
+	Set<Equipo> findByJugadoresNombreContaining(@Param("txtNombreJugador") String txtNombreJugador);
 	
 }

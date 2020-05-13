@@ -22,8 +22,8 @@ import es.sesporti.asistencia.Asistencia.TipoAsistencia;
 
 public class MixIns {
 	
-	@JsonIgnoreProperties(value = {"licenciaEquipo"})//"idEquipo","asistencias","equipo"
-	@JsonPropertyOrder({ "nombre", "edad","poc", "nif","nombreEquipo","categoriaEquipo"})//,"fechaNacimiento", "equipo","asistencias" 
+	@JsonIgnoreProperties(value = {"licenciaEquipo","idEquipo","nombreEquipo","categoriaEquipo"})//,"asistencias","equipo"
+	@JsonPropertyOrder({ "id", "nombre", "edad","fechaNacimiento","poc", "nif"})// ,"equipo","asistencias" 
 	public static interface Jugadores {
 		
 		@JsonProperty("id")

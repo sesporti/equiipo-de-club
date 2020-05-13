@@ -7,9 +7,20 @@
 
     <entity class="es.sesporti.asistencia.Entrenador" access="FIELD">
         <table name="ENTRENADORES"/>
+        
+        <entity-listeners>
+            <entity-listener class="es.sesporti.asistencia.repositorios.EntrenadorListener">
+<!--                 <pre-persist method-name="antesDeGuardar"/> -->
+<!--                 <post-persist method-name="despuesDeGuardar"/> -->
+                <pre-remove method-name="antesDeBorrar"/>
+<!--                 <pre-update method-name="antesDeGuardar"/> -->
+<!--                 <post-update method-name="despuesDeGuardar"/>                  -->
+            </entity-listener>
+        </entity-listeners>
+        
         <attributes>
             <id name="id">
-<!--                 <generated-value strategy="IDENTITY"/> -->
+                <generated-value strategy="IDENTITY"/>
             </id>
                        
             <basic name="nif" optional="false">
@@ -22,11 +33,11 @@
             
             <!-- RELACION CON TABLA EQUIPOS, CREACION DE JOIN-TABLE ENTRE LAS DOS TABLAS -->
             <many-to-many name="equipos"
-            				target-entity="es.sesporti.asistencia.Equipo"
-            				fetch="LAZY">
-            	<join-table name="ENTRENADORES_EQUIPOS">
-            		<join-column name="ID_ENTRENADOR"/>
-            		<inverse-join-column name="ID_EQUIPO"/>
+            			target-entity="es.sesporti.asistencia.Equipo"
+            			fetch="LAZY"    			>
+       			<join-table name="ENTRENADORES_EQUIPOS">
+           		<join-column name="ID_ENTRENADOR"/>
+           		<inverse-join-column name="ID_EQUIPO"/>
             	</join-table>
             </many-to-many>
 

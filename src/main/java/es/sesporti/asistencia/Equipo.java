@@ -7,9 +7,6 @@ import java.util.List;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import competicion.Categoria;
 import competicion.Licencia;
 
@@ -70,11 +67,17 @@ public class Equipo implements Nombrable, EntrenadorEquipo, Comparable<Equipo>{
 	}
 
 	public List<Entrenador> getEntrenadores() {
+		
 		return entrenadores;
 	}
 
 	public void setEntrenadores(List<Entrenador> entrenadores) {
-		addAllEntrenadores(entrenadores);
+		if (this.entrenadores != null) {
+			for (Entrenador entrenador : this.entrenadores) {
+				entrenador.removeEquipo(this);
+			}
+		}	
+		this.entrenadores = entrenadores;
 	}
 	
 	public List<String> getNombreJugadores() {
@@ -94,40 +97,35 @@ public class Equipo implements Nombrable, EntrenadorEquipo, Comparable<Equipo>{
 	}	
 
 	//CONSTRUCTORS
-	public Equipo() {}
-	
-	public Equipo(long id, String nombre, Categoria categoria, Licencia licencia) {
-		setId(id);
-		setNombre(nombre);
-		setCategoria(categoria);
-		setLicencia(licencia);
+	public Equipo() {
 		setJugadores(new ArrayList<>());
 		setEntrenadores(new ArrayList<>());
 	}
 	
-	//METHODS
+	public Equipo(long id, String nombre, Categoria categoria, Licencia licencia) {
+		this();
+		setId(id);
+		setNombre(nombre);
+		setCategoria(categoria);
+		setLicencia(licencia);
 
+	}
+	
+	//METHODS
+	
 	/**
 	 * Agrega un entrenador a un equipo, pero previamente el entrenador tiene que tener la licencia para poder entrenar un equipo con dicha licencia.
 	 * @param entrenador
 	 */
 	public void addEntrenador(Entrenador entrenador) {
-		Logger log = LoggerFactory.getLogger(Equipo.class);
-		try {
-			if (isEntrenadorValidoParaEquipo(entrenador, this)) {
-				getEntrenadores().add(entrenador);
-			    entrenador.getEquipos().add(this);
+		if (!getEntrenadores().contains(entrenador)) {
+			getEntrenadores().add(entrenador);
+			if (!entrenador.getEquipos().contains(this)) {
+			entrenador.getEquipos().add(this);
 			}
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		} finally {
-			log.debug("El entrenador {} no puede entrenar al equipo {} "
-					+ "por NO disponer de la Licencia requerida", entrenador.getNombre(), getNombre());
-		}
-		
-		
-	}
-	
+		}	
+	}	
+
 	/**
 	 * Agrega el jugador al equipo si no está en él, así como actualiza el equipo en el jugador pasado como parámetro.
 	 * @param jugador
@@ -135,8 +133,10 @@ public class Equipo implements Nombrable, EntrenadorEquipo, Comparable<Equipo>{
 	public void addJugador(Jugador jugador){
 	    if (!getJugadores().contains(jugador)) {
 	    	getJugadores().add(jugador);
-		    jugador.setEquipo(this);	
-		}	
+	    	if (jugador.getEquipo() != this) {
+				jugador.setEquipo(this);
+			}
+		} 
 	}
 	
 	public void addAllEntrenadores(Collection<Entrenador> entrenadores) {
@@ -153,12 +153,10 @@ public class Equipo implements Nombrable, EntrenadorEquipo, Comparable<Equipo>{
 	
 	public void removeEntrenador (Entrenador entrenador) {
 		getEntrenadores().remove(entrenador);
-		entrenador.getEquipos().remove(this);
 	}
 	
 	public void removeJugador(Jugador jugador) {
 		getJugadores().remove(jugador);
-		jugador.setEquipo(null);
 		
 	}
 	

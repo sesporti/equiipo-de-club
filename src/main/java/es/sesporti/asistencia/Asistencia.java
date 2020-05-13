@@ -2,9 +2,7 @@ package es.sesporti.asistencia;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.ManyToOne;
-//import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Asistencia implements Identificable, Comparable<Asistencia> {
 
@@ -21,7 +19,8 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 	private LocalDate fecha;
 	
 	@ManyToOne(targetEntity=Jugador.class)
-	private Jugador jugador;	
+	private Jugador jugador;
+	
 	private TipoAsistencia tipoAsistencia = TipoAsistencia.SI;
 	
 	//ACCESORS: GETTERS & SETTERS
@@ -47,9 +46,14 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 	}
 
 	public void setJugador(Jugador jugador) {
+		//Esta comprobación se realiza por la relacion de bidireccionalidad con jugador, hay que asegurarse
+		//que al anterior jugador se le elimina la asistencia de su lista antes de asignarselo al nuevo jugador.
+		if (this.jugador != null) {
+			this.jugador.removeAsistencia(this);
+		}		
 		this.jugador = jugador;
 //        if (!jugador.getAsistencias().contains(this)) { // Da problemas al deserializar asistencias.json, ademas se advierte que esto puede causar problemas de rendimiento si tiene un conjunto de datos grande ya que esta operación es O (n)
-//            jugador.getAsistencias().add(this);
+//            jugador.addAsistencia(this);
 //        }
 	}
 	
@@ -61,6 +65,7 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 		this.tipoAsistencia = tipoAsistencia;
 	}
 	
+	//getters para Mixins.Jugador, por si necesito mostrar los campos relacionados con el Jugador.
 	public long getIdJugador() {
 		return getJugador().getId();
 	}
@@ -91,7 +96,7 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 		setTipoAsistencia(tipo);
 	}
 	
-	//METODOS
+	//METHODS
 	
 	@Override
 	public String toString() {
@@ -106,7 +111,5 @@ public class Asistencia implements Identificable, Comparable<Asistencia> {
 		}
 		return this.getFecha().compareTo(o.getFecha());
 	}
-
-
 
 }

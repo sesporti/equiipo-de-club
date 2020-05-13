@@ -20,7 +20,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import es.sesporti.asistencia.Asistencia;
 import es.sesporti.asistencia.Entrenador;
 import es.sesporti.asistencia.Equipo;
@@ -32,8 +31,6 @@ import es.sesporti.asistencia.repositorios.JugadorDAO;
 
 @SpringBootApplication
 @ImportResource({"classpath:config/jpa-config.xml"})
-//@EnableJpaRepositories("${es.lanyu.jpa-package}")// usando propiedad, tambien se puede usar una clase
-//@EntityScan("es.lanyu.usuarios.repositorios")// o definirlo literal. ambos admiten varios valores
 @Import(ConfiguracionPorJava.class)
 public class EquipoclubapiApplication {
 	
@@ -52,9 +49,10 @@ public class EquipoclubapiApplication {
 		AsistenciaDAO asistenciaDAO = context.getBean(AsistenciaDAO.class);
 		
 		//Descomentar para carga inicial de datos en BD,s.
-//		cargarEquiposDesdeArchivo("src/main/resources/equipos.json", mapper, equipoDAO);
-//		cargarJugadoresDesdeArchivo("src/main/resources/jugadores.json", mapper, jugadorDAO);
+		
+//		cargarEquiposDesdeArchivo("src/main/resources/equipos.json", mapper, equipoDAO);		
 //		cargarEntrenadoresDesdeArchivo("src/main/resources/entrenadores.json", mapper, entrenadorDAO);
+//		cargarJugadoresDesdeArchivo("src/main/resources/jugadores.json", mapper, jugadorDAO);
 //		cargarAsistenciasDesdeArchivo("src/main/resources/asistencias.json", mapper, asistenciaDAO);
 		
 		//Entidades
@@ -71,18 +69,11 @@ public class EquipoclubapiApplication {
 		asistencias.stream().map(Asistencia::toString).forEach(log::debug);
 		
 		//Metodos personalizados con RESTful
-		List<Jugador> jugadoresPorEdadCategoria = jugadorDAO.getJugadoresPorEdadesCategoria(11,12);//ALEVINES
+		List<Jugador> jugadoresPorEdadCategoria = jugadorDAO.getJugadoresPorEdadesLicencia(11,12);//ALEVINES
 		jugadoresPorEdadCategoria.stream().map(Jugador::toString).forEach(log::warn);
 		
-		List<Jugador> jugadoresPorEdad = jugadorDAO.getJugadoresPorEdad(10);//por edad, no por Categoria
-		jugadoresPorEdad.stream().map(Jugador::toString).forEach(log::warn);
-		
-		//Comprobación de asignacion de entrenador a equipo válido
-//		Entrenador entrenadorJuvenil = entrenadorDAO.getOne((long) 2);
-//		entrenadorJuvenil.addEquipo(equipoDAO.getOne((long) 1));//equipo Alevin
-//		equipoDAO.getOne((long) 2).addEntrenador(entrenadorDAO.getOne((long)3));//equipo Infantil
-//		
-//		log.debug("Entrenadores Infantil B: {}", equipoDAO.getOne((long) 2).getEntrenadores());
+		List<Jugador> jugadoresPorEdad = jugadorDAO.getJugadoresPorEdad(9);//por edad, no por Categoria
+		jugadoresPorEdad.stream().map(Jugador::toString).forEach(log::warn);		
 		
 //		context.close();
 	}
@@ -94,6 +85,7 @@ public class EquipoclubapiApplication {
 			        mapper.getTypeFactory().constructCollectionType(ArrayList.class, Jugador.class));
 			
 			jugadorDAO.saveAll(jugadores);
+			log.trace("Cargados Jugadores: {}", jugadores);
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,7 +148,7 @@ public class EquipoclubapiApplication {
 				}
 			}
 		} catch (Exception e) {
-			log.error("Error leyendo: {}", linea);
+			log.error("Error leyendo: {}: {}", linea, e.getMessage());
 		}
 	}
 }

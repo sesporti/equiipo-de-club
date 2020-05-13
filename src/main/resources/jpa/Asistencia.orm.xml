@@ -7,18 +7,28 @@
 
     <entity class="es.sesporti.asistencia.Asistencia" access="FIELD">
         <table name="ASISTENCIAS"/>
+        
+        <entity-listeners>
+            <entity-listener class="es.sesporti.asistencia.repositorios.AsistenciaListener">
+<!--                 <pre-persist method-name="antesDeGuardar"/> -->
+<!--                 <post-persist method-name="despuesDeGuardar"/> -->
+                <pre-remove method-name="antesDeBorrar"/>
+<!--                 <post-update method-name="despuesDeGuardar"/>    -->
+            </entity-listener>
+        </entity-listeners>
+        
         <attributes>
             <id name="id">
-<!--                 <generated-value strategy="IDENTITY"/> -->
+                <generated-value strategy="IDENTITY"/>
             </id>
             
             <basic name="fecha" optional="false"></basic>
             
             <basic name="tipoAsistencia" optional="false">
-				<enumerated>STRING</enumerated> <!-- 	NO FUNCIONA : "No enum constant es.sesporti.asistencia.Asistencia.TipoAsistencia.0" -->
+				<enumerated>STRING</enumerated>
             </basic>
             <!-- RELACION CON TABLA JUGADORES -->
-			<many-to-one name="jugador">
+			<many-to-one name="jugador" fetch="LAZY" optional="false">
             	<join-column name="ID_JUGADOR"/>
       		</many-to-one>
 			      
