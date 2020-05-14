@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,37 +42,37 @@ public class EquipoclubapiApplication {
 		
 //		ObjectMapper mapper = context.getBean(ObjectMapper.class);
 		
-		JugadorDAO jugadorDAO = context.getBean(JugadorDAO.class);
-		EntrenadorDAO entrenadorDAO = context.getBean(EntrenadorDAO.class);
-		EquipoDAO equipoDAO = context.getBean(EquipoDAO.class);
-		AsistenciaDAO asistenciaDAO = context.getBean(AsistenciaDAO.class);
+//		JugadorDAO jugadorDAO = context.getBean(JugadorDAO.class);
+//		EntrenadorDAO entrenadorDAO = context.getBean(EntrenadorDAO.class);
+//		EquipoDAO equipoDAO = context.getBean(EquipoDAO.class);
+//		AsistenciaDAO asistenciaDAO = context.getBean(AsistenciaDAO.class);
 		
-		//Descomentar para carga inicial de datos en BD,s.
-		
+//		//Descomentar para carga inicial de datos en BD,s.
+//		
 //		cargarEquiposDesdeArchivo("src/main/resources/equipos.json", mapper, equipoDAO);		
 //		cargarEntrenadoresDesdeArchivo("src/main/resources/entrenadores.json", mapper, entrenadorDAO);
 //		cargarJugadoresDesdeArchivo("src/main/resources/jugadores.json", mapper, jugadorDAO);
 //		cargarAsistenciasDesdeArchivo("src/main/resources/asistencias.json", mapper, asistenciaDAO);
 		
-		//Entidades
-		List<Equipo> equipos = equipoDAO.findAll();
-		equipos.stream().map(Equipo::toString).forEach(log::debug);
-		
-		List<Jugador> jugadores = jugadorDAO.findAll();
-		jugadores.stream().map(Jugador::toString).forEach(log::debug);
-				
-		List<Entrenador> entrenadores = entrenadorDAO.findAll();
-		entrenadores.stream().map(Entrenador::toString).forEach(log::debug);
-		
-		List<Asistencia> asistencias = asistenciaDAO.findAll();
-		asistencias.stream().map(Asistencia::toString).forEach(log::debug);
-		
-		//Metodos personalizados con RESTful
-		List<Jugador> jugadoresPorEdadCategoria = jugadorDAO.getJugadoresPorEdadesLicencia(11,12);//ALEVINES
-		jugadoresPorEdadCategoria.stream().map(Jugador::toString).forEach(log::warn);
-		
-		List<Jugador> jugadoresPorEdad = jugadorDAO.getJugadoresPorEdad(9);//por edad, no por Categoria
-		jugadoresPorEdad.stream().map(Jugador::toString).forEach(log::warn);		
+//		//Entidades
+//		List<Equipo> equipos = equipoDAO.findAll();
+//		equipos.stream().map(Equipo::toString).forEach(log::debug);
+//		
+//		List<Jugador> jugadores = jugadorDAO.findAll();
+//		jugadores.stream().map(Jugador::toString).forEach(log::debug);
+//				
+//		List<Entrenador> entrenadores = entrenadorDAO.findAll();
+//		entrenadores.stream().map(Entrenador::toString).forEach(log::debug);
+//		
+//		List<Asistencia> asistencias = asistenciaDAO.findAll();
+//		asistencias.stream().map(Asistencia::toString).forEach(log::debug);
+//		
+//		//Metodos personalizados con RESTful
+//		List<Jugador> jugadoresPorEdadCategoria = jugadorDAO.getJugadoresPorEdadesLicencia(11,12);//ALEVINES
+//		jugadoresPorEdadCategoria.stream().map(Jugador::toString).forEach(log::warn);
+//		
+//		List<Jugador> jugadoresPorEdad = jugadorDAO.getJugadoresPorEdad(9);//por edad, no por Categoria
+//		jugadoresPorEdad.stream().map(Jugador::toString).forEach(log::warn);		
 		
 //		context.close();
 	}

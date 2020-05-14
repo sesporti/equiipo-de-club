@@ -47,6 +47,8 @@ Las propiedades de conexión a la BD,s son las que vienen a continuación:
 
 Mejor desde una consola para ver el log [`java -jar equipoclubapi-VERSION.jar`](./assets/despliegueLocal/).
 
-Puedes utilizar esta colección Postman para probarla
+La [documentación de la API en Postman](https://documenter.getpostman.com/view/10815375/Szmb7zkg) esta disponible siguiendo el enlace, así mismo pulsando el botón se puede correr la colección en Postman.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/10815375/Szmb7zkg)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/1ba2754905d84a88c60c)
+
+
