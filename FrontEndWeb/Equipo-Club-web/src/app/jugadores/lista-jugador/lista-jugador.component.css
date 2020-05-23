@@ -1,0 +1,21 @@
+select {
+  width: fit-content;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.card-body {
+  background-color: beige;
+
+}
+
+.container-fluid {
+  margin-bottom: 15em;
+}

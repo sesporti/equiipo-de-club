@@ -1,0 +1,138 @@
+<div class="container-fluid">
+  <div class="row mb-4 justify-content-end">
+    <button
+      class="p-2 ml-4 btn btn-primary"
+      [routerLink]="['/jugadores/form', idJugador]"
+    >
+      Editar Jugador
+    </button>
+    <button class="p-2 ml-4 btn btn-danger" (click)="borrarJugador()">
+      Borrar Jugador
+    </button>
+  </div>
+  <div class="row justify-content-center align-items-center mb-4">
+    <a routerLink="/jugadores" class="mr-4"
+      ><fa-icon
+        id="futbolista"
+        [icon]="fasChevronCircleLeft"
+        size="4x"
+        title="Volver a listado jugadores"
+      ></fa-icon
+    ></a>
+    <h1>{{ jugador.nombre }}</h1>
+    <favorito
+      class="ml-4"
+      escala="1.5"
+      coleccion="fav_jugadores"
+      [valor]="idJugador"
+      (cambia)="cambiaJugadorFavorito($event)"
+    ></favorito>
+  </div>
+
+  <div class="row justify-content-center" id="tab">
+    <section class="">
+      <nav>
+        <div
+          class="nav nav-pills flex-column flex-sm-row"
+          id="nav-tab"
+          role="tablist"
+        >
+          <a
+            class="flex-sm-fill text-sm-center nav-item nav-link active"
+            id="nav-home-tab"
+            data-toggle="tab"
+            href="#nav-home"
+            role="tab"
+            aria-controls="nav-home"
+            aria-selected="true"
+            >Datos Personales</a
+          >
+          <a
+            class="flex-sm-fill text-sm-center nav-item nav-link"
+            id="nav-profile-tab"
+            data-toggle="tab"
+            href="#nav-profile"
+            role="tab"
+            aria-controls="nav-profile"
+            aria-selected="false"
+            >Datos Equipo</a
+          >
+          <a
+            class="flex-sm-fill text-sm-center nav-item nav-link"
+            id="nav-contact-tab"
+            data-toggle="tab"
+            href="#nav-contact"
+            role="tab"
+            aria-controls="nav-contact"
+            aria-selected="false"
+            >Datos Asistencias</a
+          >
+        </div>
+      </nav>
+
+      <div class="tab-content" id="nav-tabContent">
+        <div
+          class="tab-pane fade show active ml-4 mt-4"
+          id="nav-home"
+          role="tabpanel"
+          aria-labelledby="nav-home-tab"
+        >
+          <ul>
+            <li>
+              <h4>NIF: {{ jugador.nif }}</h4>
+            </li>
+            <li>
+              <h4>
+                Fecha Nacimiento:
+                {{ jugador.fechaNacimiento | date: "dd-MM-yyyy" }}
+              </h4>
+            </li>
+            <li>
+              <h4>Edad: {{ jugador.edad }} años</h4>
+            </li>
+            <li>
+              <h4>Persona de Contacto: {{ jugador.poc }}</h4>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="tab-pane fade mt-4"
+          id="nav-profile"
+          role="tabpanel"
+          aria-labelledby="nav-profile-tab"
+        >
+          <div class="card" style="width: 25rem;">
+            <img
+              src="../../../assets/img/equipos.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h2 class="card-title">{{ equipo.nombre }}</h2>
+              <p class="card-text"></p>
+              <ul>
+                <li>{{ equipo.categoria }}</li>
+                <li>{{ equipo.licencia }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade ml-4 mt-4"
+          id="nav-contact"
+          role="tabpanel"
+          aria-labelledby="nav-contact-tab"
+        >
+          <ul *ngFor="let asistencia of asistencias">
+            <li>
+              <p>
+                {{ asistencia.fecha | date: "dd/MM/yy" }} -Motivo:
+                {{ asistencia.tipoAsistencia }}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

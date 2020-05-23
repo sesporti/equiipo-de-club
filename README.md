@@ -1,4 +1,6 @@
-# EQUIPO-DE-CLUB-API
+# **EQUIPO-DE-CLUB-API**
+
+---
 
 ## **Supuesto de la aplicación**
 
@@ -23,13 +25,23 @@ El uso de aplicación va a ser inminentemente para uso en smartphone, aunque deb
 
 La **documentación del proyecto** se puede consultar en el siguiente link:
 
-> ### [Wiki Proyecto](https://git.institutomilitar.com/sesporti/equiipo-de-club/wikis/home)
+> ### [Wiki Proyecto](https://git.institutomilitar.com/sesporti/equiipo-de-club/wikis/home), sólo acceso desde GitLab privado.
 
 ## **Proyecto vinculado a otro repositorio (proyecto)**
 
 Este proyecto tiene **dependecia en su implementación de otro proyecto** que se encuentra en el siguiente repositorio:
 
-> ### [EquiipoClub](https://git.institutomilitar.com/sesporti/equiipoclub.git)
+> ### [EquiipoClub en GitLab](https://git.institutomilitar.com/sesporti/equiipoclub.git), sólo acceso desde GitLab privado.
+> ### [EquiipoClub en GitHub](https://github.com/sesporti/equiipoclub), repositorio público.
+
+---
+
+## FrontEnd-Web EquipoClubWeb
+
+- Dentro de la carpeta [`FrontEndWeb`](./FrontEndWeb/Equipo-Club-web) se encuentra el proyecto de desarrollo del Front-web de la aplicación Equiipo-Club.   
+- Ha sido generado con `Angular v9.1.1`.   
+- Se han utilizado como librerías en el proyecto `Bootstrap, AngularMaterial y FontAwesome`, así mismo se ha utilizado para documentar el proyecto la librería [`Compodoc`](https://compodoc.app/).   
+- La aplicación para Demo se encuentra desplegada en produccion en este servidor web de aplicaciones [**Equiipo de Club**](https://sesporti.github.io/).
 
 ---
 
@@ -43,11 +55,27 @@ Las propiedades de conexión a la BD,s son las que vienen a continuación:
 > url=jdbc:h2:tcp://localhost/~/testEquipoClub  
 > username=sa  
 > password=basedatosh2  
-> Entonces ejecutar la API con la última versión
+> Entonces ejecutar la API con la versión incluida en carpeta `despliegueLocal`.
 
-Mejor desde una consola para ver el log [`java -jar equipoclubapi-VERSION.jar`](./assets/despliegueLocal/).
+El despliegue se puede hacer mejor desde una consola para ver el log [`java -jar equipoclubapi-VERSION.jar`](./assets/despliegueLocal/).
 
-La [documentación de la API en Postman](https://documenter.getpostman.com/view/10815375/Szmb7zkg) esta disponible siguiendo el enlace, así mismo pulsando el botón se puede correr la colección en Postman.
+Así mismo, para realizar pruebas puede seguir las intrucciones del apartado `Postman`.   
+
+---
+
+## **Despliegue en la nube**
+
+Para el despliegue en la nube del _Backend_ se usa el [deploy en Heroku](https://github.com/sesporti/equiipo-de-club/deployments) para probarlo directamente. Al estar utilizando [Heroku](https://www.heroku.com/) hay que tener en cuenta lo siguiente:
+1. El servicio hiberna despúes 30 minutos sin usar y tardará un poco más en la primera petición.
+1. Usar el environment `Heroku` de _**`Postman`**_.
+
+---
+
+## **Postman**
+
+Si se realiza el despliegue en local deberá utilizar en Postman el entorno `Local Equipo de Club`, si por el contrario se realiza el despligue en la nube deberá utilizar el entorno `Heroku` de la colección.
+
+- La [documentación de la API en Postman](https://documenter.getpostman.com/view/10815375/Szmb7zkg) esta disponible siguiendo el enlace, así mismo pulsando el botón _`Run in Postman`_ se puede ejecutar la colección en Postman.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/1ba2754905d84a88c60c)
 

@@ -1,0 +1,155 @@
+<div class="input-group mb-2">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Nombre jugador</span>
+  </div>
+  <input
+    class="form-control"
+    #buscar
+    type="text"
+    placeholder="Buscar por nombre jugador..."
+    (keyup)="filtrarJugador(buscar.value)"
+    (blur)="buscar.value = ''"
+  />
+</div>
+<div
+  class="text-danger"
+  *ngIf="asistenciasLista.length == 0 && buscar.value != ''"
+>
+  No se han encontrado asistencias con el valor '{{ buscar.value }}'
+</div>
+<div class="input-group mb-2">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Tipo Asistencia</span>
+  </div>
+  <input
+    class="form-control"
+    #buscarAsistencia
+    type="text"
+    placeholder="Buscar por tipo asistencia..., introduzca tipo y pulse Enter"
+    (keyup.enter)="filtrarAsistencia(buscarAsistencia.value.toUpperCase())"
+    (blur)="buscarAsistencia.value = ''"
+  />
+</div>
+<div
+  class="text-danger"
+  *ngIf="asistenciasLista.length == 0 && buscarAsistencia.value != ''"
+>
+  No se han encontrado asistencias con el valor '{{ buscarAsistencia.value }}'
+</div>
+<div class="input-group mb-2">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Equipo</span>
+  </div>
+  <input
+    class="form-control"
+    #buscarEquipo
+    type="text"
+    placeholder="Buscar por nombre de equipo..."
+    (keyup)="filtrarEquipo(buscarEquipo.value)"
+    (blur)="buscarEquipo.value = ''"
+  />
+</div>
+<div
+  class="text-danger"
+  *ngIf="asistenciasLista.length == 0 && buscarEquipo.value != ''"
+>
+  No se han encontrado asistencias con el valor '{{ buscarEquipo.value }}'
+</div>
+<div class="row-flex d-flex justify-content-start">
+  <div class="input-group mb-2 mr-2" id="fechaInicial">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Fecha Inicial</span>
+    </div>
+    <input
+      class="form-control"
+      #buscarFechaIni
+      [(value)]="fechaInicialBuscada"
+      type="date"
+      placeholder="Buscar por fecha inicial asistencia..."
+      (change)="filtrarPorFecha(buscarFechaIni.value)"
+    />
+  </div>
+  <div class="input-group mb-2" id="fechaFinal">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Fecha Final</span>
+    </div>
+    <input
+      class="form-control"
+      #buscarFechaFin
+      [(value)]="fechaFinalBuscada"
+      type="date"
+      placeholder="Buscar por fecha final asistencia..."
+      (change)="filtrarEntreFechas(buscarFechaIni.value, buscarFechaFin.value)"
+      (blur)="buscarFechaIni.value = ''; buscarFechaFin.value = ''"
+    />
+  </div>
+</div>
+<div *ngIf="asistenciasLista.length > 0" class="mt-2">
+  Mostrando 1-{{ asistenciasLista.length }} de
+  {{ asistenciasLista.length }} asistencias
+</div>
+<button
+  class="btn btn-primary my-2"
+  [class.active]="!filtroActivo"
+  (click)="borrarFiltros()"
+>
+  <span class="spinner-grow spinner-grow-sm"></span>
+  Quitar Filtros
+</button>
+<div id="listaAsistencias" class="row mt-4 mb-5">
+  <ul>
+    <li
+      *ngFor="let asistencia of asistenciasLista"
+      [class.asistenciaPresente]="estaPresente(asistencia)"
+    >
+      <fa-icon [icon]="farCalendarAlt" size="1.75x"></fa-icon>
+      <a>
+        <span
+          #fecha
+          id="fecha"
+          class="fechaAsistencia"
+          (click)="filtrarPorFecha(asistencia.fecha)"
+          >{{ asistencia.fecha | date: "dd/MM/yyyy" }}</span
+        >
+        <span
+          #asistencia
+          id="asistencia"
+          class="tipoAsistencia"
+          (click)="filtrarAsistencia(asistencia.tipoAsistencia)"
+        >
+          {{ asistencia.tipoAsistencia }}
+        </span>
+        <span class="nombreJugador">
+          {{ asistencia.nombreJugador }}
+        </span>
+        <span
+          #equipo
+          id="equipo"
+          class="nombreEquipo"
+          (click)="filtrarEquipo(asistencia.equipoJugador.nombre)"
+        >
+          {{ asistencia.equipoJugador.nombre | uppercase }} -
+          {{ asistencia.equipoJugador.categoria }}
+        </span>
+        <a
+          id="modificar"
+          [routerLink]="[
+            'form',
+            asistenciasService.getIdAsistencia(asistencia)
+          ]"
+          title="Modificar registro"
+        >
+          <fa-icon [icon]="fasEdit" size="1.75x"></fa-icon
+        ></a>
+
+        <fa-icon
+          id="eliminar"
+          [icon]="fasTrashAlt"
+          size="1.75x"
+          (click)="borrarAsistencia(asistencia)"
+          title="Eliminar registro"
+        ></fa-icon>
+      </a>
+    </li>
+  </ul>
+</div>

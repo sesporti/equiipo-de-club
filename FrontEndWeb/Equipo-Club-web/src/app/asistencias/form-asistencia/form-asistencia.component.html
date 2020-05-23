@@ -1,0 +1,78 @@
+<h2 class="text-center">{{ titulo }}</h2>
+<form #f="ngForm" (ngSubmit)="guardar(f)" class="container d-block">
+  <div class="form-group" style="width: fit-content;">
+    <label for="fecha">Fecha</label>
+    <input
+      #fecha="ngModel"
+      [(ngModel)]="asistencia.fecha"
+      name="fecha"
+      type="date"
+      class="form-control"
+      id="fecha"
+      required
+      [min]="fechaMinima"
+    />
+    <div *ngIf="fecha.invalid && fecha.untouched" class="alert alert-danger">
+      <div *ngIf="fecha.errors?.required">
+        Fecha requerida.
+      </div>
+      <div *ngIf="fecha.errors?.min">
+        La fecha debe ser igual o posterior a la actual ({{ fechaMinima }}).
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="jugador">Jugador</label>
+    <select
+      #jugador="ngModel"
+      [(ngModel)]="idJugador"
+      name="jugador"
+      id="jugador"
+      class="form-control"
+      required
+      (change)="obtenerNombreJugador(jugador.value)"
+    >
+      <option
+        *ngFor="let jugador of jugadores"
+        value="{{ jugadoresService.getIdJugador(jugador) }}"
+      >
+        {{ jugador.nombre }} - {{ jugador.edad }} años</option
+      >
+    </select>
+    <div *ngIf="asistencia.nombreJugador != ''" class="alert alert-info">
+      El jugador actual es : {{ asistencia.nombreJugador }}
+    </div>
+    <div *ngIf="jugador.invalid && jugador.pristine" class="alert alert-danger">
+      El jugador es obligatorio.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="tipoAsistencia">Tipo de Asistencia</label>
+    <select
+      #tipo="ngModel"
+      [(ngModel)]="asistencia.tipoAsistencia"
+      name="tipo"
+      required
+      id="tipoAsistencia"
+      class="form-control"
+    >
+      <option *ngFor="let tipo of tipos" value="{{ tipo }}">{{ tipo }}</option>
+    </select>
+    <div *ngIf="tipo.invalid && tipo.pristine" class="alert alert-danger">
+      El tipo es obligatorio.
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary btn-lg mr-2"
+    [disabled]="f.invalid"
+  >
+    Guardar
+  </button>
+  <button type="button" class="btn btn-secondary btn-lg" (click)="cancelar(f)">
+    Cancelar
+  </button>
+</form>

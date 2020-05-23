@@ -1,0 +1,29 @@
+#panelIzquierdo {
+  padding: 16px;
+  background-image: linear-gradient(to right, rgba(241, 245, 245, 0), rgba(5, 116, 116, 0.965));
+}
+
+#panelIzquierdo img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid rgb(175, 175, 175);
+  border-radius: 50%;
+  filter: drop-shadow(8px 8px 10px blue);
+}
+
+#panelIzquierdo a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+#panelIzquierdo h1 {
+  font-size: 2em;
+  margin-right: auto;
+}
+
+fa-icon {
+  margin-right: 16px;
+}

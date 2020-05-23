@@ -1,0 +1,73 @@
+#listaAsistencias {
+  font-size: 1.25em;
+  margin-top: auto;
+}
+
+#listaAsistencias li {
+  list-style: none;
+  position: relative;
+  height: 70px;
+}
+
+#listaAsistencias fa-icon {
+  position: relative;
+  top: 10px;
+  margin-right: 30px;
+  font-size: 1.5em;
+  color: darkgray;
+}
+
+#listaAsistencias .fechaAsistencia {
+  position: relative;
+  top: 10px;
+  font-weight: 500;
+}
+
+#listaAsistencias .tipoAsistencia {
+  position: absolute;
+  left: 200px;
+  top: 15px;
+  font-weight: 500;
+}
+
+#listaAsistencias .nombreJugador {
+  position: absolute;
+  left: 350px;
+  top: 15px;
+  font-weight: 400;
+  min-width: fit-content;
+}
+
+#listaAsistencias .nombreEquipo {
+  position: absolute;
+  left: 600px;
+  top: 15px;
+  font-weight: 400;
+  min-width: fit-content;
+}
+
+.asistenciaPresente>* {
+  color: lightgray;
+}
+
+.active {
+  display: none;
+}
+
+#fecha,
+#asistencia,
+#equipo {
+  cursor: pointer;
+}
+
+#fechaInicial,
+#fechaFinal {
+  width: fit-content;
+}
+
+#modificar,
+#eliminar {
+  position: relative;
+  left: 725px;
+  cursor: pointer;
+}

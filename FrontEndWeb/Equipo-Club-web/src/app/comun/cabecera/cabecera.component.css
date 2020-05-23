@@ -1,0 +1,11 @@
+#inicio  {
+  text-decoration: none;
+}
+.enlaceActivo {
+  color: darkcyan;
+  border-bottom: 2px solid darkcyan;
+  text-decoration-style: double;
+}
+li a{
+  text-decoration: none;
+}

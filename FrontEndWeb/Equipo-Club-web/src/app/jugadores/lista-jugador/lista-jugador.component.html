@@ -1,0 +1,158 @@
+<div class="container-fluid">
+  <div class="row-flex">
+    <div class="row">
+      <div class="input-group col-12 col-md-8 mb-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Nombre jugador</span>
+        </div>
+        <input
+          class="form-control"
+          #buscarJugador
+          type="text"
+          placeholder="Buscar por nombre jugador..."
+          (keyup)="filtrarJugador(buscarJugador.value)"
+          (blur)="buscarJugador.value = ''"
+        />
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="jugadoresLista.length == 0 && buscarJugador.value != ''"
+      >
+        No se han encontrado jugadores con el valor '{{ buscarJugador.value }}'
+      </div>
+      <div class="input-group col-12 col-md-4 mb-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Edad</span>
+        </div>
+        <input
+          class="form-control"
+          #buscarEdad
+          type="text"
+          placeholder="Buscar por edad jugador..."
+          (keyup.enter)="filtrarPorEdad(buscarEdad.value)"
+          (blur)="buscarEdad.value = ''"
+        />
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="jugadoresLista.length == 0 && buscarEdad.value != ''"
+      >
+        No se han encontrado jugadores con la edad de '{{ buscarEdad.value }}'
+        años.
+      </div>
+    </div>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Licencia Federativa</span>
+      </div>
+
+      <select
+        #licencia
+        id="licencia"
+        class="form-control"
+        (change)="filtrarPorLicencia(licencia.value)"
+        (blur)="licencia.value = ''"
+      >
+        <option selected></option>
+        <option *ngFor="let licencia of licencias"> {{ licencia }} </option>
+      </select>
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="jugadoresLista.length == 0 && licencia.value != ''"
+    >
+      No se han encontrado jugadores con la licencia '{{ licencia.value }}'.
+    </div>
+
+    <div class="row">
+      <div class="input-group col-12 col-md-6 mb-2" id="edadMinima">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Edad Mínima</span>
+        </div>
+        <input
+          class="form-control"
+          #buscarEdadMin
+          type="text"
+          placeholder="Buscar por edad minima de jugador..."
+          (keyup.enter)="filtrarPorEdad(buscarEdadMin.value)"
+        />
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="jugadoresLista.length == 0 && buscarEdadMin.value != ''"
+      >
+        No se han encontrado jugadores con edad mínima de '{{
+          buscarEdadMin.value
+        }}' años.
+      </div>
+      <div class="input-group col-12 col-md-6 mb-2" id="edadMaxima">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Edad Máxima</span>
+        </div>
+        <input
+          class="form-control"
+          #buscarEdadMax
+          type="text"
+          placeholder="Buscar por edad máxima jugador..."
+          (keyup.enter)="
+            filtrarPorEdades(buscarEdadMin.value, buscarEdadMax.value)
+          "
+          (blur)="buscarEdadMax.value = ''; buscarEdadMin.value = ''"
+        />
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="jugadoresLista.length == 0 && buscarEdadMax.value != ''"
+      >
+        No se han encontrado jugadores con edad máxima de '{{
+          buscarEdadMax.value
+        }}' años.
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="jugadoresLista.length > 0" class="mt-2">
+    Mostrando 1-{{ jugadoresLista.length }} de
+    {{ jugadoresLista.length }} jugadores
+  </div>
+  <button
+    class="btn btn-primary my-2"
+    [class.active]="!filtroActivo"
+    (click)="borrarFiltros()"
+  >
+    <span class="spinner-grow spinner-grow-sm"></span>
+    Quitar Filtros
+  </button>
+
+  <div
+    class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 mt-4 justify-content-center"
+  >
+    <div
+      class="card h-100 text-center mb-2"
+      *ngFor="let jugador of jugadoresLista; index as i"
+    >
+      <a
+        [routerLink]="['jugadores', jugadoresService.getIdJugador(jugador)]"
+        title="Detalle Jugador"
+      >
+        <div class="card-header">
+          <fa-icon [icon]="fasRunning" size="2x"></fa-icon>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{ jugador.nombre }}</h3>
+          <small class="card-text">{{ jugador.edad }} años</small>
+        </div>
+      </a>
+      <div class="card-footer">
+        <favorito
+          class="mr-2"
+          escala="1.5"
+          coleccion="fav_jugadores"
+          [valor]="jugadoresService.getIdJugador(jugador)"
+          (cambia)="cambiaJugadorFavorito($event)"
+        ></favorito>
+      </div>
+    </div>
+  </div>
+</div>

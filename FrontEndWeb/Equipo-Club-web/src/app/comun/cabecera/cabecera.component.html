@@ -1,0 +1,47 @@
+<header>
+  <div class="bg-dark collapse" id="navbarHeader">
+    <div class="container-fluid">
+      <div class="row justify-content-between">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-muted">Sobre la aplicación</h4>
+          <p class="text-light font-italic">
+            Esta aplicación permite realizar la gestión deportiva y administrativa de los jugadores, entrenadores y equipos del Club de Futbol "EQUIIPO DE CLUB". Dentro del módulo de Asistencias se puede realizar el control de asistencia a entrenamientos y partidos de los jugadores. En todos los módulos se pueden consultar de forma general y detalladamente los jugadores, entrenadores, equipos y asistencias.
+          </p>
+        </div>
+        <div class="col-sm-4 col-lg-2 offset-md-1 py-4">
+          <h4 class="text-muted">Módulos de Gestión</h4>
+          <ul>
+            <li><a routerLink="jugadores" routerLinkActive="enlaceActivo" class="text-white">JUGADORES</a></li>
+            <li><a routerLink="entrenadores" routerLinkActive="enlaceActivo" class="text-white">ENTRENADORES</a></li>
+            <li><a routerLink="equipos" routerLinkActive="enlaceActivo" class="text-white">EQUIPOS</a></li>
+            <li><a routerLink="asistencias" routerLinkActive="enlaceActivo" class="text-white">ASISTENCIAS</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container-fluid d-flex justify-content-between">
+      <a routerLink="" title="Inicio" id= "inicio" class="navbar-brand d-flex align-items-center">
+        <img
+      class="rounded-circle mr-2"
+      src="../assets/img/logoApp.jpg"
+      alt="Logotipo Club"
+      style="float: left; width: 40px;"
+    />
+        <strong>{{ nombreApp }}</strong>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarHeader"
+        aria-controls="navbarHeader"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>

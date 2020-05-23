@@ -38,6 +38,7 @@ public class EquipoclubapiApplication {
 	public static void main(String[] args) {
 
 		
+		@SuppressWarnings("unused")
 		ConfigurableApplicationContext context = SpringApplication.run(EquipoclubapiApplication.class, args);
 		
 //		ObjectMapper mapper = context.getBean(ObjectMapper.class);

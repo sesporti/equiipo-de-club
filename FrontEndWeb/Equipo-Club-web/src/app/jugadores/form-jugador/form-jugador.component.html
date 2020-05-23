@@ -1,0 +1,140 @@
+<h2 class="text-center">{{ titulo }}</h2>
+<form #f="ngForm" (ngSubmit)="guardar(f)" class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="form-group col-12 col-md-8 col-lg-9">
+      <label for="nombre">Nombre</label>
+      <input
+        #nombre="ngModel"
+        [(ngModel)]="jugador.nombre"
+        name="nombre"
+        type="text"
+        class="form-control form-control-sm"
+        id="nombre"
+        maxlength="50"
+      />
+      <div *ngIf="nombre.untouched" class="alert alert-info">
+        Campo no requerido, ¿incluir nombre?.
+      </div>
+      <div
+        *ngIf="nombre.errors && nombre.errors.maxlength"
+        class="alert alert-danger"
+      >
+        El máximo de caracteres para el nombre es
+        {{ nombre.errors.maxlength.requiredLength }}, y lleva
+        {{ nombre.errors.maxlength.actualLength }} caracteres.
+      </div>
+    </div>
+
+    <div class="form-group col-12 col-md-4 col-lg-3">
+      <label for="nif">NIF</label>
+      <input
+        #nif="ngModel"
+        [(ngModel)]="jugador.nif"
+        name="nif"
+        type="text"
+        class="form-control form-control-sm"
+        id="nif"
+        required
+        pattern="^(\d{8})([A-Z])$"
+      />
+      <div *ngIf="nif.invalid && nif.untouched" class="alert alert-danger">
+        <div *ngIf="nif.errors?.required">
+          NIF es requerido.
+        </div>
+        <div *ngIf="nif.errors?.pattern">
+          El NIF tiene el siguiente formato: 00000000A (0 = numero y A = letra
+          mayúscula).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-12 col-md-4 col-lg-3">
+      <label for="fecha">Fecha nacimiento</label>
+      <input
+        #fecha="ngModel"
+        [(ngModel)]="jugador.fechaNacimiento"
+        name="fecha"
+        type="date"
+        class="form-control form-control-sm"
+        id="fecha"
+        required
+        [max]="fechaMaxima"
+      />
+      <div *ngIf="fecha.invalid && fecha.untouched" class="alert alert-danger">
+        <div *ngIf="fecha.errors?.required">
+          Fecha requerida.
+        </div>
+        <div *ngIf="fecha.errors?.max">
+          La fecha debe ser igual o anterior a la actual ({{
+            fechaMaxima | date: "dd/MM/yy"
+          }}).
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-12 col-md-8 col-lg-9">
+      <label for="poc">Persona de Contacto</label>
+      <input
+        #poc="ngModel"
+        [(ngModel)]="jugador.poc"
+        name="poc"
+        type="text"
+        class="form-control form-control-sm"
+        id="poc"
+        maxlength="50"
+      />
+      <div *ngIf="poc.untouched" class="alert alert-info">
+        Campo no requerido, ¿incluir nombre?.
+      </div>
+      <div *ngIf="poc.errors?.maxlength" class="alert alert-danger">
+        El máximo de caracteres para el POC es
+        {{ poc.errors.maxlength.requiredLength }}, y lleva
+        {{ poc.errors.maxlength.actualLength }} caracteres.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="equipo">Asignación Equipo</label>
+    <select
+      #equipo="ngModel"
+      [(ngModel)]="idEquipo"
+      name="equipo"
+      id="equipo"
+      required
+      (change)="obtenerNombreEquipo(equipo.value)"
+      class="form-control form-control-sm"
+    >
+      <option
+        *ngFor="let equipo of equipos"
+        value="{{ equiposService.getIdEquipo(equipo) }}"
+        >{{ equipo.nombre }} - {{ equipo.categoria }}</option
+      >
+    </select>
+    <div *ngIf="jugador.nombreEquipo != ''" class="alert alert-info">
+      El equipo actual es : {{ jugador.nombreEquipo }}
+    </div>
+    <div *ngIf="equipo.invalid && equipo.pristine" class="alert alert-danger">
+      El equipo es obligatorio.
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <button
+      type="submit"
+      class="btn btn-primary btn-lg mr-2"
+      [disabled]="f.invalid"
+    >
+      Guardar
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary btn-lg"
+      (click)="cancelar(f)"
+    >
+      Cancelar
+    </button>
+  </div>
+</form>
